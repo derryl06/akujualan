@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>akugambar.co — Portofolio Lengkap</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div class="container header-inner">
+      <a class="brand" href="index.html">akugambar.co</a>
+      <button class="theme-toggle" type="button" aria-label="Toggle mode malam/siang" aria-pressed="false">
+        <span class="sr-only">Toggle mode malam/siang</span>
+        <span class="toggle-icon sun" aria-hidden="true">☀</span>
+        <span class="toggle-icon moon" aria-hidden="true">☾</span>
+        <span class="toggle-thumb" aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="kicker">Portofolio Lengkap</div>
+        <div class="headline">Koleksi Karya Terbaik</div>
+        <p class="hero-desc">
+          Pilihan karya dengan gaya monokrom minimalis, fokus pada pesan dan bentuk.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="portfolio-toolbar">
+          <div class="kicker">Kategori</div>
+          <div class="chip-row" role="list">
+            <button class="chip is-active" type="button" data-filter="all">Semua</button>
+            <button class="chip" type="button" data-filter="branding">Branding</button>
+            <button class="chip" type="button" data-filter="poster">Poster</button>
+            <button class="chip" type="button" data-filter="logo">Logo</button>
+            <button class="chip" type="button" data-filter="ilustrasi">Ilustrasi</button>
+          </div>
+        </div>
+        <div id="portfolio-grid" class="portfolio-grid"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container portfolio-cta">
+        <div>
+          <div class="headline">Siap Kolaborasi?</div>
+          <p>Diskusi cepat untuk mulai proyek desain yang rapi dan terarah.</p>
+        </div>
+        <a class="footer-cta" href="#">Hubungi Saya</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-brand">akugambar.co</div>
+        <div class="footer-small">akujualan.co</div>
+      </div>
+      <a class="footer-cta" href="index.html">Kembali ke Beranda</a>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-nav prev" type="button" aria-label="Sebelumnya">‹</button>
+    <button class="lightbox-close" type="button" aria-label="Tutup">✕</button>
+    <button class="lightbox-nav next" type="button" aria-label="Berikutnya">›</button>
+    <img class="lightbox-img" alt="Pratinjau karya" />
+  </div>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="supabase.js"></script>
+  <script defer src="portfolio.js"></script>
+</body>
+</html>

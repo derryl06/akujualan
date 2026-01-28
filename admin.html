@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>akugambar.co — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div class="container header-inner">
+      <a class="brand" href="index.html">akugambar.co</a>
+      <button class="theme-toggle" type="button" aria-label="Toggle mode malam/siang" aria-pressed="false">
+        <span class="sr-only">Toggle mode malam/siang</span>
+        <span class="toggle-icon sun" aria-hidden="true">☀</span>
+        <span class="toggle-icon moon" aria-hidden="true">☾</span>
+        <span class="toggle-thumb" aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div id="config-notice" class="notice is-hidden">
+          Isi `SUPABASE_URL` dan `SUPABASE_ANON_KEY` di `supabase.js` dulu.
+        </div>
+
+        <div class="admin-grid">
+          <div class="admin-panel" id="auth-panel">
+            <div class="headline">Login Admin</div>
+            <p class="muted">Masuk untuk menambah dan mengubah karya.</p>
+            <form id="login-form" class="form-grid">
+              <div>
+                <label for="login-email">Email</label>
+                <input id="login-email" type="email" required />
+              </div>
+              <div>
+                <label for="login-password">Password</label>
+                <input id="login-password" type="password" required />
+              </div>
+              <button class="btn" type="submit">Masuk</button>
+              <div id="login-status" class="form-status"></div>
+            </form>
+          </div>
+
+          <div class="admin-panel is-hidden" id="admin-panel">
+            <div class="admin-header">
+              <div>
+                <div class="headline">Kelola Portofolio</div>
+                <p class="muted">Tambah, edit, atau hapus karya.</p>
+              </div>
+              <button class="btn btn-outline" type="button" id="logout-btn">Keluar</button>
+            </div>
+
+            <form id="item-form" class="form-grid">
+              <div>
+                <label for="item-title">Judul</label>
+                <input id="item-title" type="text" required />
+              </div>
+              <div>
+                <label for="item-category">Kategori</label>
+                <select id="item-category" required>
+                  <option value="branding">Branding</option>
+                  <option value="poster">Poster</option>
+                  <option value="logo">Logo</option>
+                  <option value="ilustrasi">Ilustrasi</option>
+                </select>
+              </div>
+              <div class="full">
+                <label for="item-description">Deskripsi</label>
+                <textarea id="item-description" rows="3"></textarea>
+              </div>
+              <div class="full">
+                <label>Gambar (max 5)</label>
+                <div id="dropzone" class="dropzone">
+                  <input id="item-image" type="file" accept="image/*" multiple />
+                  <div class="dropzone-text">
+                    Tarik & letakkan gambar di sini, atau klik untuk memilih.
+                  </div>
+                  <small class="muted">Auto-compress max 1920px / 400KB.</small>
+                </div>
+                <div id="image-preview" class="preview-grid"></div>
+              </div>
+              <div class="form-actions full">
+                <button class="btn" type="submit" id="submit-btn">Simpan</button>
+                <button class="btn btn-outline" type="button" id="reset-btn">Reset</button>
+              </div>
+              <div id="item-status" class="form-status full"></div>
+            </form>
+
+            <div class="admin-sort">
+              <div class="kicker">Urutkan Karya</div>
+              <p class="muted">Drag & drop untuk mengatur urutan tampil.</p>
+              <button class="btn btn-outline" type="button" id="save-order-btn">Simpan Urutan</button>
+            </div>
+            <div class="admin-list" id="item-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-brand">akugambar.co</div>
+        <div class="footer-small">akujualan.co</div>
+      </div>
+      <a class="footer-cta" href="index.html">Kembali ke Beranda</a>
+    </div>
+  </footer>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="supabase.js"></script>
+  <script defer src="admin.js"></script>
+</body>
+</html>
