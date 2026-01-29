@@ -1046,11 +1046,13 @@ body[data-theme="dark"] .faq-question:hover {
 
 @media (min-width: 700px) {
   .card-grid {
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
 
   .card-row {
     grid-template-columns: repeat(3, 1fr);
+    grid-column: 1 / -1;
   }
 }
 
