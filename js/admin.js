@@ -217,6 +217,41 @@ const fetchTestimonialsAdmin = async () => {
   });
 };
 
+const fetchAnalytics = async () => {
+  if (!window.supabaseClient) return;
+
+  const { data, error } = await window.supabaseClient
+    .from("page_visits")
+    .select("page_path, referrer");
+
+  if (error || !data) return;
+
+  // Total visits
+  document.getElementById("stat-total-visits").textContent = data.length;
+
+  // Top page
+  const pageCounts = data.reduce((acc, curr) => {
+    acc[curr.page_path] = (acc[curr.page_path] || 0) + 1;
+    return acc;
+  }, {});
+  const topPage = Object.entries(pageCounts).sort((a, b) => b[1] - a[1])[0];
+  if (topPage) {
+    const pageName = topPage[0].replace(".html", "").replace("/", "") || "Home";
+    document.getElementById("stat-top-page").textContent = pageName.charAt(0).toUpperCase() + pageName.slice(1);
+  }
+
+  // Top referrer
+  const refCounts = data.reduce((acc, curr) => {
+    const ref = curr.referrer === "Direct" ? "Direct" : new URL(curr.referrer).hostname;
+    acc[ref] = (acc[ref] || 0) + 1;
+    return acc;
+  }, {});
+  const topRef = Object.entries(refCounts).sort((a, b) => b[1] - a[1])[0];
+  if (topRef) {
+    document.getElementById("stat-top-referrer").textContent = topRef[0];
+  }
+};
+
 loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (!ensureConfigured()) return;
@@ -344,6 +379,7 @@ if (ensureConfigured()) {
     if (isAuthed) {
       fetchItems();
       fetchTestimonialsAdmin();
+      fetchAnalytics();
     }
   });
 }
