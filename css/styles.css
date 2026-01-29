@@ -328,7 +328,7 @@ body[data-theme="dark"] .social-list a:hover {
   background: var(--card);
   border-radius: 16px;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
-  min-height: 140px;
+  min-height: 120px;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -358,11 +358,11 @@ body[data-theme="dark"] .social-list a:hover {
 }
 
 .card.tall {
-  min-height: 200px;
+  min-height: 170px;
 }
 
 .card.wide {
-  min-height: 180px;
+  min-height: 150px;
 }
 
 .card.placeholder::after {
