@@ -29,17 +29,20 @@ const closeLightbox = () => {
   lightboxImg.src = "";
 };
 
-lightboxClose.addEventListener("click", closeLightbox);
-lightbox.addEventListener("click", (event) => {
-  if (event.target === lightbox) closeLightbox();
-});
+if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
+if (lightbox) {
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) closeLightbox();
+  });
+}
 
 const showLightboxImage = () => {
-  if (!lightboxImages.length) return;
+  if (!lightboxImages.length || !lightboxImg) return;
   lightboxImg.src = lightboxImages[lightboxIndex];
 };
 
 const openLightbox = (images, index = 0) => {
+  if (!lightbox) return;
   lightboxImages = images;
   lightboxIndex = index;
   showLightboxImage();
@@ -63,24 +66,26 @@ if (lightboxNext) {
   });
 }
 
-cardGrid.addEventListener("click", (event) => {
-  const card = event.target.closest(".work-card");
-  if (!card) return;
-  let images = [];
-  try {
-    images = JSON.parse(card.getAttribute("data-images") || "[]");
-  } catch {
-    images = [];
-  }
-  if (!images.length) {
-    const fallback = card.getAttribute("data-full");
-    if (fallback) images = [fallback];
-  }
-  if (!images.length) return;
-  openLightbox(images, 0);
-  const id = card.getAttribute("data-id");
-  if (id) incrementViews(id);
-});
+if (cardGrid) {
+  cardGrid.addEventListener("click", (event) => {
+    const card = event.target.closest(".work-card");
+    if (!card) return;
+    let images = [];
+    try {
+      images = JSON.parse(card.getAttribute("data-images") || "[]");
+    } catch {
+      images = [];
+    }
+    if (!images.length) {
+      const fallback = card.getAttribute("data-full");
+      if (fallback) images = [fallback];
+    }
+    if (!images.length) return;
+    openLightbox(images, 0);
+    const id = card.getAttribute("data-id");
+    if (id) incrementViews(id);
+  });
+}
 
 const loadLatestWorks = async () => {
   const cards = Array.from(document.querySelectorAll(".work-card"));
