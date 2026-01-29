@@ -399,10 +399,40 @@ body[data-theme="dark"] .social-list a:hover {
 }
 
 .menu-item {
+  display: block;
+  text-decoration: none;
+  color: var(--text);
   font-size: clamp(18px, 4vw, 26px);
   font-weight: 700;
-  padding: 16px 0;
+  padding: 20px 0;
   border-bottom: 1px solid var(--line);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-item:hover {
+  padding-left: 12px;
+  color: var(--muted);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.02) 0%, transparent 100%);
+}
+
+body[data-theme="dark"] .menu-item:hover {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+}
+
+.menu-item::after {
+  content: "→";
+  position: absolute;
+  right: 0;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.3s ease;
+}
+
+.menu-item:hover::after {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* Portfolio page */
