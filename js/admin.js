@@ -17,7 +17,7 @@ const testiListAdmin = document.getElementById("testi-list-admin");
 const testiStatusAdmin = document.getElementById("testi-status-admin");
 
 const BUCKET_NAME = "portfolio";
-const MAX_FILE_SIZE = 400 * 1024;
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const MAX_IMAGES = 5;
 const MAX_DIMENSION = 1920;
 let selectedFiles = [];
