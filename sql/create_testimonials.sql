@@ -18,5 +18,11 @@ create policy "Anyone can insert testimonials"
   on testimonials for insert
   with check (true);
 
+-- Allow authenticated users (admin) to manage all testimonials
+create policy "Admins can manage all testimonials"
+  on testimonials for all
+  using (auth.role() = 'authenticated')
+  with check (auth.role() = 'authenticated');
+
 -- Enable RLS
 alter table testimonials enable row level security;

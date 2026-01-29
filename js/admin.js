@@ -13,6 +13,8 @@ const dropzone = document.getElementById("dropzone");
 const imageInput = document.getElementById("item-image");
 const previewGrid = document.getElementById("image-preview");
 const saveOrderBtn = document.getElementById("save-order-btn");
+const testiListAdmin = document.getElementById("testi-list-admin");
+const testiStatusAdmin = document.getElementById("testi-status-admin");
 
 const BUCKET_NAME = "portfolio";
 const MAX_FILE_SIZE = 400 * 1024;
@@ -157,6 +159,64 @@ const fetchItems = async () => {
   });
 };
 
+const fetchTestimonialsAdmin = async () => {
+  if (!testiListAdmin) return;
+  const { data, error } = await window.supabaseClient
+    .from("testimonials")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    showStatus(testiStatusAdmin, error.message, true);
+    return;
+  }
+
+  testiListAdmin.innerHTML = "";
+  if (data.length === 0) {
+    testiListAdmin.innerHTML = '<p class="muted">Belum ada testimoni.</p>';
+    return;
+  }
+
+  data.forEach((item) => {
+    const row = document.createElement("div");
+    row.className = "admin-item";
+    row.style.gridTemplateColumns = "1fr auto";
+
+    const info = document.createElement("div");
+    info.className = "admin-info";
+    info.innerHTML = `
+      <div class="admin-title">${item.name} <small class="muted">(${item.role || "-"})</small></div>
+      <div class="admin-meta" style="font-size: 14px; margin-top: 4px; color: var(--text); font-style: italic;">"${item.content}"</div>
+    `;
+
+    const actions = document.createElement("div");
+    actions.className = "admin-actions";
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.type = "button";
+    deleteBtn.className = "btn btn-danger";
+    deleteBtn.textContent = "Hapus";
+    deleteBtn.addEventListener("click", async () => {
+      if (!confirm("Yakin hapus testimoni ini?")) return;
+      const { error: deleteError } = await window.supabaseClient
+        .from("testimonials")
+        .delete()
+        .eq("id", item.id);
+
+      if (deleteError) {
+        showStatus(testiStatusAdmin, deleteError.message, true);
+        return;
+      }
+      showStatus(testiStatusAdmin, "Testimoni dihapus.");
+      fetchTestimonialsAdmin();
+    });
+
+    actions.append(deleteBtn);
+    row.append(info, actions);
+    testiListAdmin.append(row);
+  });
+};
+
 loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (!ensureConfigured()) return;
@@ -281,7 +341,10 @@ if (ensureConfigured()) {
   window.supabaseClient.auth.onAuthStateChange((_event, session) => {
     const isAuthed = Boolean(session);
     setPanelState(isAuthed);
-    if (isAuthed) fetchItems();
+    if (isAuthed) {
+      fetchItems();
+      fetchTestimonialsAdmin();
+    }
   });
 }
 
