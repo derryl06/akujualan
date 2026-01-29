@@ -320,15 +320,15 @@ body[data-theme="dark"] .social-list a:hover {
 
 .card-row {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 }
 
 .card {
   background: var(--card);
   border-radius: 16px;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
-  min-height: 100px;
+  min-height: 120px;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -358,11 +358,11 @@ body[data-theme="dark"] .social-list a:hover {
 }
 
 .card.tall {
-  min-height: 140px;
+  min-height: 170px;
 }
 
 .card.wide {
-  min-height: 120px;
+  min-height: 150px;
 }
 
 .card.placeholder::after {
@@ -1009,7 +1009,7 @@ body[data-theme="dark"] .faq-question:hover {
 
   .card-row,
   .card-row.second {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .footer-grid {
@@ -1024,7 +1024,7 @@ body[data-theme="dark"] .faq-question:hover {
   }
 
   .card-row {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
