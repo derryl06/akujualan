@@ -202,3 +202,35 @@ if (backToTop) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 }
+
+// Scroll reveal observer
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("active");
+    } else {
+      entry.target.classList.remove("active");
+    }
+  });
+}, {
+  threshold: 0.1,
+  rootMargin: "0px 0px -50px 0px"
+});
+
+const initReveal = () => {
+  const reveals = document.querySelectorAll(".reveal, .reveal-stagger");
+  reveals.forEach(el => revealObserver.observe(el));
+};
+
+// Handle dynamic content
+const observeMutation = new MutationObserver(() => {
+  initReveal();
+});
+
+const mainElement = document.querySelector('main');
+if (mainElement) {
+  observeMutation.observe(mainElement, { childList: true, subtree: true });
+}
+
+document.addEventListener("DOMContentLoaded", initReveal);
+initReveal();

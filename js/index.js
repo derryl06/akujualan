@@ -234,3 +234,36 @@ document.addEventListener("click", (e) => {
     item.classList.add("is-open");
   }
 });
+
+// Scroll reveal observer
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("active");
+    } else {
+      // Remove this if you only want it to animate once
+      entry.target.classList.remove("active");
+    }
+  });
+}, {
+  threshold: 0.1,
+  rootMargin: "0px 0px -50px 0px"
+});
+
+const initReveal = () => {
+  const reveals = document.querySelectorAll(".reveal, .reveal-stagger");
+  reveals.forEach(el => revealObserver.observe(el));
+};
+
+// Also handle dynamic content (like testimonials or portfolio items)
+const observeMutation = new MutationObserver(() => {
+  initReveal();
+});
+
+const mainElement = document.querySelector('main');
+if (mainElement) {
+  observeMutation.observe(mainElement, { childList: true, subtree: true });
+}
+
+document.addEventListener("DOMContentLoaded", initReveal);
+initReveal(); // Run once immediately
