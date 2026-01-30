@@ -15,6 +15,7 @@ const previewGrid = document.getElementById("image-preview");
 const saveOrderBtn = document.getElementById("save-order-btn");
 const testiListAdmin = document.getElementById("testi-list-admin");
 const testiStatusAdmin = document.getElementById("testi-status-admin");
+const bulkCompressBtn = document.getElementById("bulk-compress-btn");
 
 const BUCKET_NAME = "portfolio";
 const MAX_UPLOAD_SIZE = 10 * 1024 * 1024; // Batas upload awal (10MB)
@@ -543,4 +544,73 @@ saveOrderBtn.addEventListener("click", async () => {
   }
 
   showStatus(itemStatus, "Urutan disimpan.");
+});
+
+bulkCompressBtn.addEventListener("click", async () => {
+  if (!ensureConfigured()) return;
+  if (!confirm("Fitur ini akan men-download, mengompres, dan meng-upload ulang SEMUA gambar portfolio yang ada. Ini mungkin memakan waktu beberapa menit jika gambar sangat banyak. Lanjutkan?")) return;
+
+  bulkCompressBtn.disabled = true;
+  bulkCompressBtn.textContent = "Memproses...";
+  showStatus(itemStatus, "Memulai bulk kompresi...");
+
+  try {
+    const { data: items, error } = await window.supabaseClient
+      .from("portfolio_items")
+      .select("id, image_paths, image_path");
+
+    if (error) throw error;
+
+    let totalFixed = 0;
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      const paths = item.image_paths || (item.image_path ? [item.image_path] : []);
+
+      showStatus(itemStatus, `Memproses item ${i + 1}/${items.length}...`);
+
+      for (const path of paths) {
+        try {
+          // Download image
+          const { data: blob, error: dlError } = await window.supabaseClient.storage
+            .from(BUCKET_NAME)
+            .download(path);
+
+          if (dlError) {
+            console.error(`Gagal download ${path}:`, dlError);
+            continue;
+          }
+
+          // Convert to File object for compressor
+          const file = new File([blob], path.split('/').pop(), { type: blob.type });
+
+          // Skip if already small (optional, but better to just re-compress)
+          if (file.size <= COMPRESSION_TARGET) continue;
+
+          const compressed = await compressImage(file);
+          if (compressed) {
+            // Upload back (upsert: true)
+            const { error: ulError } = await window.supabaseClient.storage
+              .from(BUCKET_NAME)
+              .upload(path, compressed, { upsert: true, contentType: "image/jpeg" });
+
+            if (ulError) {
+              console.error(`Gagal upload ulang ${path}:`, ulError);
+            } else {
+              totalFixed++;
+            }
+          }
+        } catch (e) {
+          console.error(`Error processing ${path}:`, e);
+        }
+      }
+    }
+
+    showStatus(itemStatus, `Selesai! Berhasil mengompres ${totalFixed} gambar.`);
+  } catch (err) {
+    showStatus(itemStatus, `Gagal bulk kompres: ${err.message}`, true);
+  } finally {
+    bulkCompressBtn.disabled = false;
+    bulkCompressBtn.textContent = "Bulk Kompres Semua";
+    fetchItems();
+  }
 });
