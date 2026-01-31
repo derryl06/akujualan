@@ -1,5 +1,6 @@
 const loadAkujualanPortfolio = async () => {
     const portfolioGrid = document.getElementById("akujualan-portfolio");
+    const bundlingGrid = document.getElementById("akujualan-bundling");
     if (!portfolioGrid) return;
 
     // Fetch all items for akujualan
@@ -18,16 +19,20 @@ const loadAkujualanPortfolio = async () => {
 
     if (!data || data.length === 0) {
         portfolioGrid.innerHTML = `<p class="muted">Belum ada karya untuk ditampilkan.</p>`;
+        if (bundlingGrid) bundlingGrid.innerHTML = `<p class="muted" style="grid-column: 1/-1; text-align: center;">Belum ada paket bundling.</p>`;
         return;
     }
 
-    portfolioGrid.innerHTML = "";
+    // Separate Bundling items from regular Portfolio
+    const bundlingItems = data.filter(item => item.category === "bundling");
+    const generalItems = data.filter(item => item.category !== "bundling");
 
-    // Create grid container using existing styles
+    // RENDER PORTFOLIO SECTION
+    portfolioGrid.innerHTML = "";
     const gridDiv = document.createElement("div");
     gridDiv.className = "portfolio-grid";
 
-    data.forEach(item => {
+    generalItems.forEach(item => {
         const card = document.createElement("div");
         card.className = "portfolio-card reveal";
         card.dataset.category = item.category || "other";
@@ -48,54 +53,76 @@ const loadAkujualanPortfolio = async () => {
             </div>
         `;
 
-        // Interaction for lightbox
         card.addEventListener("click", () => {
             const images = JSON.parse(card.getAttribute("data-images"));
-            if (window.openLightbox) {
-                window.openLightbox(images, 0, item.title, item.description);
-            }
-        });
-
-        // Hover effect logic (via JS for precision)
-        card.addEventListener("mouseenter", () => {
-            const img = card.querySelector(".portfolio-thumb");
-            const overlay = card.querySelector(".portfolio-overlay");
-            if (img) img.style.transform = "scale(1.08)";
-            if (overlay) overlay.style.opacity = "1";
-        });
-        card.addEventListener("mouseleave", () => {
-            const img = card.querySelector(".portfolio-thumb");
-            const overlay = card.querySelector(".portfolio-overlay");
-            if (img) img.style.transform = "scale(1)";
-            if (overlay) overlay.style.opacity = "0";
+            if (window.openLightbox) window.openLightbox(images, 0, item.title, item.description);
         });
 
         gridDiv.appendChild(card);
     });
-
     portfolioGrid.appendChild(gridDiv);
+
+    // RENDER BUNDLING SECTION
+    if (bundlingGrid) {
+        bundlingGrid.innerHTML = "";
+        if (bundlingItems.length === 0) {
+            bundlingGrid.innerHTML = `<p class="muted" style="grid-column: 1/-1; text-align: center;">Belum ada paket bundling yang tersedia.</p>`;
+        } else {
+            bundlingItems.forEach(item => {
+                const card = document.createElement("div");
+                card.className = "card reveal";
+                card.style.cssText = "padding: 0; flex-direction: column; position: relative; overflow: hidden; background: #fff; border-radius: 24px; border: 1px solid var(--line);";
+
+                card.innerHTML = `
+                    <div style="width: 100%; height: 220px; overflow: hidden;">
+                        <img src="${item.image_url}" alt="${item.title}" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="padding: 24px; display: flex; flex-direction: column; gap: 12px;">
+                        <div class="kicker" style="font-size: 12px;">Special Package</div>
+                        <h3 style="font-size: 20px; font-weight: 700; color: var(--text); line-height: 1.2;">${item.title}</h3>
+                        <p style="font-size: 14px; color: var(--muted);">${item.description || "Hubungi kami untuk detail paket hemat ini."}</p>
+                        <a href="https://wa.me/6285700804186?text=Halo%20akujualan.co%2C%20saya%20tertarik%20dengan%20paket%20${encodeURIComponent(item.title)}" class="btn btn-outline" style="text-align: center; text-decoration: none; margin-top: 8px;">Pesan Paket</a>
+                    </div>
+                `;
+                bundlingGrid.appendChild(card);
+            });
+        }
+    }
 
     // Logic for filtering
     const chips = document.querySelectorAll(".chip");
     const cards = gridDiv.querySelectorAll(".portfolio-card");
 
+    const filterItems = (filter) => {
+        // Update active chip UI
+        chips.forEach(c => {
+            if (c.dataset.filter === filter) c.classList.add("is-active");
+            else c.classList.remove("is-active");
+        });
+
+        // Filter cards
+        cards.forEach(card => {
+            if (filter === "all" || card.dataset.category === filter) {
+                card.style.display = "block";
+                card.style.opacity = "0";
+                setTimeout(() => {
+                    card.style.opacity = "1";
+                    card.style.transition = "opacity 0.4s ease";
+                }, 10);
+            } else {
+                card.style.display = "none";
+            }
+        });
+    };
+
     chips.forEach(chip => {
         chip.addEventListener("click", () => {
-            chips.forEach(c => c.classList.remove("is-active"));
-            chip.classList.add("is-active");
-
-            const filter = chip.dataset.filter;
-
-            cards.forEach(card => {
-                if (filter === "all" || card.dataset.category === filter) {
-                    card.style.display = "block";
-                    card.classList.add("reveal");
-                } else {
-                    card.style.display = "none";
-                }
-            });
+            filterItems(chip.dataset.filter);
         });
     });
+
+    // Handle initial filter if needed
+    filterItems("all");
 
     if (window.initReveal) window.initReveal();
 };

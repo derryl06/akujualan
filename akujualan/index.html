@@ -233,6 +233,117 @@
             border-color: var(--accent);
             color: #fff;
         }
+
+        /* Pricelist Styles */
+        .price-list-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            gap: 20px;
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 28px 32px;
+            background: #fff;
+            border-radius: 24px;
+            border: 1px solid var(--line);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            box-shadow: 0 4px 12px rgba(45, 36, 30, 0.03);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .price-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 15px 30px rgba(166, 139, 124, 0.1);
+        }
+
+        .price-left {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .price-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(166, 139, 124, 0.08);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .price-item:hover .price-icon {
+            background: var(--accent);
+            transform: rotate(12deg);
+        }
+
+        .price-info h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .price-info p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .price-val-wrapper {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+        }
+
+        .price-val {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 24px;
+            color: var(--accent);
+            padding: 4px 0;
+        }
+
+        .price-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            color: var(--muted);
+            opacity: 0.6;
+        }
+
+        @media (max-width: 600px) {
+            .price-item {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 24px;
+                gap: 20px;
+            }
+
+            .price-val-wrapper {
+                width: 100%;
+                border-top: 1px dashed var(--line);
+                padding-top: 16px;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 
@@ -316,10 +427,9 @@
                 <div class="category-chips-container"
                     style="margin-bottom: 40px; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
                     <button class="chip is-active" data-filter="all">Semua</button>
-                    <button class="chip" data-filter="cardigan">Cardigan</button>
-                    <button class="chip" data-filter="amigurumi">Amigurumi</button>
-                    <button class="chip" data-filter="dekorasi">Dekorasi</button>
                     <button class="chip" data-filter="accessories">Aksesoris</button>
+                    <button class="chip" data-filter="dekorasi">Dekorasi</button>
+                    <button class="chip" data-filter="wearable">Wearable (tas, dll)</button>
                 </div>
 
                 <div id="akujualan-portfolio" class="reveal-stagger">
@@ -370,6 +480,81 @@
                                 estetik, dan siap dikirim ke rumah Anda.</p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section reveal">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <div class="kicker">Pricelist</div>
+                        <div class="headline">Estimasi Biaya Crochet</div>
+                    </div>
+                </div>
+                <div class="price-list-container">
+                    <a href="https://wa.me/6285700804186?text=Halo%20akujualan.co%2C%20saya%20tertarik%20konsultasi%20aksesoris%20crochet"
+                        class="price-item">
+                        <div class="price-left">
+                            <div class="price-icon">✨</div>
+                            <div class="price-info">
+                                <h4>Aksesoris</h4>
+                                <p>Gantungan kunci, bandana, strap phone, dll.</p>
+                            </div>
+                        </div>
+                        <div class="price-val-wrapper">
+                            <div class="price-label">Mulai dari</div>
+                            <div class="price-val">Rp 15.000</div>
+                        </div>
+                    </a>
+
+                    <a href="https://wa.me/6285700804186?text=Halo%20akujualan.co%2C%20saya%20tertarik%20konsultasi%20dekorasi%20crochet"
+                        class="price-item">
+                        <div class="price-left">
+                            <div class="price-icon">🏠</div>
+                            <div class="price-info">
+                                <h4>Dekorasi</h4>
+                                <p>Tatakan gelas (coaster), cover pot, amigurumi.</p>
+                            </div>
+                        </div>
+                        <div class="price-val-wrapper">
+                            <div class="price-label">Mulai dari</div>
+                            <div class="price-val">Rp 25.000</div>
+                        </div>
+                    </a>
+
+                    <a href="https://wa.me/6285700804186?text=Halo%20akujualan.co%2C%20saya%20tertarik%20konsultasi%20wearable%20crochet"
+                        class="price-item">
+                        <div class="price-left">
+                            <div class="price-icon">🧶</div>
+                            <div class="price-info">
+                                <h4>Wearable (tas, dll)</h4>
+                                <p>Sling bag, bucket hat, vest, pouch, dll.</p>
+                            </div>
+                        </div>
+                        <div class="price-val-wrapper">
+                            <div class="price-label">Mulai dari</div>
+                            <div class="price-val">Rp 85.000</div>
+                        </div>
+                    </a>
+                </div>
+                <p class="muted" style="text-align: center; margin-top: 24px; font-size: 13px;">*Harga final bergantung
+                    pada jenis benang & kerumitan desain.</p>
+            </div>
+        </section>
+
+        <section class="section reveal"
+            style="background: rgba(166, 139, 124, 0.05); border-radius: 40px; margin: 0 20px;">
+            <div class="container">
+                <div class="section-heading" style="padding-top: 60px;">
+                    <div>
+                        <div class="kicker" style="text-align: center;">Special Bundling</div>
+                        <div class="headline" style="text-align: center;">Lebih Hemat dengan Paket</div>
+                    </div>
+                </div>
+                <div id="akujualan-bundling" class="card-grid"
+                    style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); padding-bottom: 60px;">
+                    <div class="muted" style="grid-column: 1/-1; text-align: center;">Memuat paket hemat...</div>
                 </div>
             </div>
         </section>
