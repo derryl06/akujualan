@@ -313,8 +313,8 @@ if (heroImage) {
 
 document.addEventListener("keydown", (e) => {
   if (e.shiftKey && e.key === "A") {
-    const isAdminPath = window.location.pathname.includes("/akujualan/");
-    window.location.href = isAdminPath ? "../admin.html" : "admin.html";
+    const isSubDir = window.location.pathname.includes("/akugambar/");
+    window.location.href = isSubDir ? "../admin.html" : "admin.html";
   }
 });
 

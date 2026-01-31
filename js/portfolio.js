@@ -268,7 +268,8 @@ if (mainElement) {
 
 document.addEventListener("keydown", (e) => {
   if (e.shiftKey && e.key === "A") {
-    window.location.href = "admin.html";
+    const isSubDir = window.location.pathname.includes("/akugambar/");
+    window.location.href = isSubDir ? "../admin.html" : "admin.html";
   }
 });
 
