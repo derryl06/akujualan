@@ -82,12 +82,38 @@ body::before {
   top: 20px;
   right: -40px;
   transform: rotate(8deg);
+  animation: floatingBrush 20s ease-in-out infinite alternate;
 }
 
 body::after {
   bottom: 10px;
   left: -50px;
   transform: rotate(-6deg);
+  animation: floatingBrush 25s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes floatingBrush {
+  0% {
+    transform: rotate(8deg) translate(0, 0);
+  }
+
+  100% {
+    transform: rotate(12deg) translate(-30px, 20px);
+  }
+}
+
+body::after {
+  animation-name: floatingBrushReverse;
+}
+
+@keyframes floatingBrushReverse {
+  0% {
+    transform: rotate(-6deg) translate(0, 0);
+  }
+
+  100% {
+    transform: rotate(-10deg) translate(30px, -20px);
+  }
 }
 
 .container {
@@ -1160,4 +1186,32 @@ body[data-theme="dark"] .faq-question:hover {
 
 .reveal-stagger.active>*:nth-child(6) {
   transition-delay: 0.6s;
+}
+
+/* Utility to ensure contrast in dark mode */
+body[data-theme="dark"] {
+  --text-rgb: 255, 255, 255;
+}
+
+body[data-theme="light"] {
+  --text-rgb: 0, 0, 0;
+}
+
+/* Glassmorphism Lightbox */
+.lightbox {
+  backdrop-filter: blur(15px) saturate(180%);
+  background: rgba(0, 0, 0, 0.7);
+}
+
+body[data-theme="light"] .lightbox {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* Premium Reveal Overrides */
+.reveal {
+  transition: opacity 1.2s cubic-bezier(0.2, 0.6, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+
+.reveal-stagger>* {
+  transition: opacity 0.8s cubic-bezier(0.2, 0.6, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.6, 0.2, 1);
 }

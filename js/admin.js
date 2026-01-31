@@ -310,12 +310,12 @@ itemForm.addEventListener("submit", async (event) => {
         console.warn("Gambar masih cukup besar setelah kompresi:", compressed.size);
       }
 
-      const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.jpg`;
+      const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.webp`;
       const filePath = `${category}/${fileName}`;
 
       const { error: uploadError } = await window.supabaseClient.storage
         .from(BUCKET_NAME)
-        .upload(filePath, compressed, { upsert: true, contentType: "image/jpeg" });
+        .upload(filePath, compressed, { upsert: true, contentType: "image/webp" });
 
       if (uploadError) {
         showStatus(itemStatus, uploadError.message, true);
@@ -454,7 +454,7 @@ const compressImage = (file) =>
             return;
           }
           tryQuality(quality - 0.1);
-        }, "image/jpeg", quality);
+        }, "image/webp", quality);
       };
 
       tryQuality(0.8);
@@ -591,7 +591,7 @@ bulkCompressBtn.addEventListener("click", async () => {
             // Upload back (upsert: true)
             const { error: ulError } = await window.supabaseClient.storage
               .from(BUCKET_NAME)
-              .upload(path, compressed, { upsert: true, contentType: "image/jpeg" });
+              .upload(path, compressed, { upsert: true, contentType: "image/webp" });
 
             if (ulError) {
               console.error(`Gagal upload ulang ${path}:`, ulError);

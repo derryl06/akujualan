@@ -137,12 +137,12 @@ const loadPortfolio = async () => {
     return;
   }
 
+  // Mengambil semua karya tanpa limit agar kategori lain bisa tampil lengkap
   const { data, error } = await window.supabaseClient
     .from("portfolio_items")
     .select("id, title, category, description, image_url, image_urls, sort_order, created_at")
     .order("sort_order", { ascending: true })
-    .order("created_at", { ascending: false })
-    .limit(9);
+    .order("created_at", { ascending: false });
 
   if (error) {
     console.warn("Gagal mengambil data portofolio:", error.message);
@@ -150,7 +150,7 @@ const loadPortfolio = async () => {
   }
 
   portfolioGrid.innerHTML = "";
-  if (!data.length) {
+  if (!data || !data.length) {
     portfolioGrid.innerHTML = "<p class=\"muted\">Belum ada karya.</p>";
     return;
   }
@@ -162,20 +162,40 @@ const loadPortfolio = async () => {
     portfolioGrid.append(card);
   });
 
-  // Default filter = all
+  const updateVisibility = (filter) => {
+    let allCounter = 0;
+    Array.from(portfolioGrid.children).forEach((card) => {
+      if (!card.classList.contains("portfolio-card")) return;
+
+      const category = card.dataset.category || "";
+      let visible = false;
+
+      if (filter === "all") {
+        // Jika "Semua", hanya tampilkan 9 karya pertama
+        if (allCounter < 9) {
+          visible = true;
+          allCounter++;
+        }
+      } else {
+        // Jika kategori spesifik, tampilkan SEMUA yang cocok
+        visible = category === filter;
+      }
+
+      card.classList.toggle("is-hidden", !visible);
+    });
+  };
+
+  // Jalankan filter awal (default: all)
+  updateVisibility("all");
+
+  // Event listener untuk kategori (chips)
   if (chips.length) {
     chips.forEach((chip) => {
       chip.addEventListener("click", () => {
         chips.forEach((btn) => btn.classList.remove("is-active"));
         chip.classList.add("is-active");
         const filter = chip.getAttribute("data-filter");
-
-        Array.from(portfolioGrid.children).forEach((card) => {
-          if (!card.classList.contains("portfolio-card")) return;
-          const category = card.dataset.category || "";
-          const visible = filter === "all" || category === filter;
-          card.classList.toggle("is-hidden", !visible);
-        });
+        updateVisibility(filter);
       });
     });
   }
