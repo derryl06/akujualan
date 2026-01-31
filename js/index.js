@@ -104,6 +104,7 @@ const loadLatestWorks = async () => {
   const { data, error } = await window.supabaseClient
     .from("portfolio_items")
     .select("id, title, image_url, image_urls, sort_order, created_at")
+    .eq("brand", "akugambar")
     .order("sort_order", { ascending: true })
     .order("created_at", { ascending: false })
     .limit(9);
