@@ -48,9 +48,15 @@ const showLightboxImage = () => {
   lightboxImg.src = lightboxImages[lightboxIndex];
 };
 
-const openLightbox = (images, index = 0) => {
+const openLightbox = (images, index = 0, title = "", desc = "") => {
   lightboxImages = images;
   lightboxIndex = index;
+
+  const titleEl = lightbox.querySelector(".lightbox-title");
+  const descEl = lightbox.querySelector(".lightbox-desc");
+  if (titleEl) titleEl.textContent = title;
+  if (descEl) descEl.textContent = desc;
+
   showLightboxImage();
   lightbox.classList.add("is-open");
   lightbox.setAttribute("aria-hidden", "false");
@@ -87,7 +93,11 @@ if (portfolioGrid) {
       if (fallback) images = [fallback];
     }
     if (!images.length) return;
-    openLightbox(images, 0);
+
+    const title = card.getAttribute("data-title") || "";
+    const desc = card.getAttribute("data-description") || "";
+
+    openLightbox(images, 0, title, desc);
     const id = card.getAttribute("data-id");
     if (id) incrementViews(id);
   });
@@ -102,6 +112,8 @@ const buildCard = (item) => {
   card.setAttribute("data-full", images[0] || "");
   card.setAttribute("data-images", JSON.stringify(images));
   card.setAttribute("data-id", item.id);
+  card.setAttribute("data-title", item.title || "");
+  card.setAttribute("data-description", item.description || "");
 
   const img = document.createElement("img");
   img.className = "portfolio-thumb";

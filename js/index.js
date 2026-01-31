@@ -41,10 +41,16 @@ const showLightboxImage = () => {
   lightboxImg.src = lightboxImages[lightboxIndex];
 };
 
-const openLightbox = (images, index = 0) => {
+const openLightbox = (images, index = 0, title = "", desc = "") => {
   if (!lightbox) return;
   lightboxImages = images;
   lightboxIndex = index;
+
+  const titleEl = lightbox.querySelector(".lightbox-title");
+  const descEl = lightbox.querySelector(".lightbox-desc");
+  if (titleEl) titleEl.textContent = title;
+  if (descEl) descEl.textContent = desc;
+
   showLightboxImage();
   lightbox.classList.add("is-open");
   lightbox.setAttribute("aria-hidden", "false");
@@ -81,7 +87,11 @@ if (cardGrid) {
       if (fallback) images = [fallback];
     }
     if (!images.length) return;
-    openLightbox(images, 0);
+
+    const title = card.getAttribute("data-title") || "";
+    const desc = card.getAttribute("data-description") || "";
+
+    openLightbox(images, 0, title, desc);
     const id = card.getAttribute("data-id");
     if (id) incrementViews(id);
   });
@@ -122,6 +132,8 @@ const loadLatestWorks = async () => {
     card.setAttribute("data-full", src);
     card.setAttribute("data-images", JSON.stringify(images));
     card.setAttribute("data-id", item.id);
+    card.setAttribute("data-title", item.title || "");
+    card.setAttribute("data-description", item.description || "");
     card.style.minHeight = "200px";
 
     const img = document.createElement("img");
@@ -275,6 +287,21 @@ const observeMutation = new MutationObserver(() => {
 const mainElement = document.querySelector('main');
 if (mainElement) {
   observeMutation.observe(mainElement, { childList: true, subtree: true });
+}
+
+// Hero Parallax Effect
+const heroImage = document.querySelector(".hero-image");
+if (heroImage) {
+  window.addEventListener("mousemove", (e) => {
+    const { clientX, clientY } = e;
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+
+    const moveX = (clientX - centerX) / 50;
+    const moveY = (clientY - centerY) / 50;
+
+    heroImage.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+  });
 }
 
 document.addEventListener("DOMContentLoaded", initReveal);
