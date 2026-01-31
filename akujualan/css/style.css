@@ -501,11 +501,12 @@ header {
 
 /* Dark Mode Specific for akujualan */
 body[data-theme="dark"] {
-    --bg: #1a1614;
-    --text: #fcfaf7;
-    --line: #3d342f;
-    --muted: #a89e94;
-    --accent: #c5ada0;
+    --bg: #1e1a17;
+    /* Rich Espresso, warmer than pure black */
+    --text: #f0e9e2;
+    --line: #38302b;
+    --muted: #a0958b;
+    --accent: #d2bba8;
 }
 
 body[data-theme="dark"] .price-item,

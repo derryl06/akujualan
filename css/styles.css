@@ -67,11 +67,14 @@ body[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
 
 /* Theme toggle (light/dark) */
 body[data-theme="dark"] {
-  --bg: #111111;
-  --text: #ffffff;
-  --muted: #a0a0a0;
-  --card: #1b1b1b;
-  --line: #333333;
+  --bg: #121418;
+  /* Deep obsidian, not pitch black */
+  --text: #e1e1e1;
+  /* Off-white for better readability */
+  --muted: #8e949d;
+  --card: #1c1f26;
+  /* Slightly lighter than bg for hierarchy */
+  --line: #2d3139;
 }
 
 body[data-theme="dark"] .social-list a {

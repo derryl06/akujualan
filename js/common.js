@@ -40,4 +40,38 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     }
+
+    // Dynamic Ambient Logic
+    const initDynamicAmbient = () => {
+        const now = new Date();
+        const hour = now.getHours();
+        let greeting = "";
+        let systemTheme = "light";
+
+        // 1. Determine Greeting
+        if (hour >= 5 && hour < 11) greeting = "Semangat Pagi";
+        else if (hour >= 11 && hour < 15) greeting = "Selamat Siang";
+        else if (hour >= 15 && hour < 18) greeting = "Selamat Sore";
+        else {
+            greeting = "Selamat Malam";
+            systemTheme = "dark";
+        }
+
+        // 2. Auto-set theme if not manually set by user
+        const hasManualTheme = localStorage.getItem("theme");
+        if (!hasManualTheme) {
+            document.body.dataset.theme = systemTheme;
+            // Update toggle btn if exists (handled loosely since it might be in index.js)
+            const toggleBtn = document.querySelector(".theme-toggle");
+            if (toggleBtn) toggleBtn.setAttribute("aria-pressed", String(systemTheme === "dark"));
+        }
+
+        // 3. Inject Greeting into placeholder if exists
+        const placeholder = document.getElementById("hero-ambient-placeholder");
+        if (placeholder) {
+            placeholder.innerHTML = `<span class="ambient-greeting">${greeting}</span>`;
+        }
+    };
+
+    initDynamicAmbient();
 });
