@@ -79,19 +79,46 @@ const loadAkujualanPortfolio = async () => {
             bundlingItems.forEach(item => {
                 const card = document.createElement("div");
                 card.className = "card reveal";
-                card.style.cssText = "padding: 0; flex-direction: column; position: relative; overflow: hidden; background: #fff; border-radius: 24px; border: 1px solid var(--line);";
+                card.style.cssText = "padding: 0; flex-direction: column; position: relative; overflow: hidden; background: #fff; border-radius: 24px; border: 1px solid var(--line); cursor: pointer;";
 
                 card.innerHTML = `
-                    <div style="width: 100%; height: 220px; overflow: hidden;">
-                        <img src="${item.image_url}" alt="${item.title}" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="bundling-thumb-wrapper" style="width: 100%; height: 220px; overflow: hidden; position: relative;">
+                        <img src="${item.image_url}" alt="${item.title}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;">
+                        <div class="portfolio-overlay" style="position: absolute; inset: 0; background: rgba(45, 36, 30, 0.4); opacity: 0; transition: opacity 0.3s ease; display: flex; align-items: center; justify-content: center;">
+                            <span style="color: #fff; font-weight: 700; font-size: 13px; letter-spacing: 1px; border: 1px solid rgba(255,255,255,0.4); padding: 8px 16px; border-radius: 99px; background: rgba(255,255,255,0.1); backdrop-filter: blur(4px);">LIHAT DETAIL</span>
+                        </div>
                     </div>
                     <div style="padding: 24px; display: flex; flex-direction: column; gap: 12px;">
                         <div class="kicker" style="font-size: 12px;">Special Package</div>
                         <h3 style="font-size: 20px; font-weight: 700; color: var(--text); line-height: 1.2;">${item.title}</h3>
                         <p style="font-size: 14px; color: var(--muted);">${item.description || "Hubungi kami untuk detail paket hemat ini."}</p>
-                        <a href="https://wa.me/6285700804186?text=Halo%20akujualan.co%2C%20saya%20tertarik%20dengan%20paket%20${encodeURIComponent(item.title)}" class="btn btn-outline" style="text-align: center; text-decoration: none; margin-top: 8px;">Pesan Paket</a>
+                        <div style="display: flex; gap: 12px; margin-top: 8px;">
+                            <a href="https://wa.me/6285700804186?text=Halo%20akujualan.co%2C%20saya%20tertarik%20dengan%20paket%20${encodeURIComponent(item.title)}" class="btn btn-outline" style="flex: 1; text-align: center; text-decoration: none;" onclick="event.stopPropagation()">Pesan Paket</a>
+                        </div>
                     </div>
                 `;
+
+                card.addEventListener("click", () => {
+                    const images = item.image_urls && item.image_urls.length ? item.image_urls : [item.image_url];
+                    if (window.openLightbox) {
+                        window.openLightbox(images, 0, item.title, item.description);
+                    }
+                });
+
+                // Hover effects for the overlay
+                card.addEventListener("mouseenter", () => {
+                    const overlay = card.querySelector(".portfolio-overlay");
+                    const img = card.querySelector("img");
+                    if (overlay) overlay.style.opacity = "1";
+                    if (img) img.style.transform = "scale(1.05)";
+                });
+                card.addEventListener("mouseleave", () => {
+                    const overlay = card.querySelector(".portfolio-overlay");
+                    const img = card.querySelector("img");
+                    if (overlay) overlay.style.opacity = "0";
+                    if (img) img.style.transform = "scale(1)";
+                });
+
                 bundlingGrid.appendChild(card);
             });
         }
