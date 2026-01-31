@@ -6,7 +6,8 @@ const adminPanel = document.getElementById("admin-panel");
 const logoutBtn = document.getElementById("logout-btn");
 const itemForm = document.getElementById("item-form");
 const itemStatus = document.getElementById("item-status");
-const itemList = document.getElementById("item-list");
+const itemListAkugambar = document.getElementById("item-list-akugambar");
+const itemListAkujualan = document.getElementById("item-list-akujualan");
 const resetBtn = document.getElementById("reset-btn");
 const configNotice = document.getElementById("config-notice");
 const dropzone = document.getElementById("dropzone");
@@ -85,8 +86,15 @@ const fetchItems = async () => {
     return;
   }
 
-  itemList.innerHTML = "";
+  if (itemListAkugambar) itemListAkugambar.innerHTML = "";
+  if (itemListAkujualan) itemListAkujualan.innerHTML = "";
+
   data.forEach((item) => {
+    const brand = item.brand || "akugambar";
+    const targetList = brand === "akugambar" ? itemListAkugambar : itemListAkujualan;
+
+    if (!targetList) return;
+
     const row = document.createElement("div");
     row.className = "admin-item";
     row.setAttribute("draggable", "true");
@@ -158,7 +166,7 @@ const fetchItems = async () => {
 
     actions.append(editBtn, deleteBtn);
     row.append(handle, thumb, info, actions);
-    itemList.append(row);
+    targetList.append(row);
   });
 };
 

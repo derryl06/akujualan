@@ -58,6 +58,87 @@
         body::before {
             opacity: 0.08;
         }
+
+        /* Process Flow Styles */
+        .process-flow {
+            display: grid;
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .process-step {
+            display: flex;
+            gap: 32px;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        .process-step::before {
+            content: "";
+            position: absolute;
+            left: 30px;
+            top: 60px;
+            bottom: -40px;
+            width: 1px;
+            background: var(--line);
+            z-index: 1;
+        }
+
+        .process-step:last-child::before {
+            display: none;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--bg);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 20px;
+            flex-shrink: 0;
+            z-index: 2;
+            position: relative;
+        }
+
+        .step-content {
+            padding-top: 10px;
+        }
+
+        .step-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .step-content p {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 600px) {
+            .process-step {
+                gap: 20px;
+            }
+
+            .step-number {
+                width: 48px;
+                height: 48px;
+                font-size: 16px;
+            }
+
+            .process-step::before {
+                left: 24px;
+            }
+        }
     </style>
 </head>
 
@@ -139,6 +220,95 @@
                 </div>
                 <div id="akujualan-portfolio" class="reveal-stagger">
                     <div class="muted">Memuat karya rajut...</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section reveal">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <div class="kicker" style="text-align: center;">Our Process</div>
+                        <div class="headline" style="text-align: center;">4 Langkah Menuju Rajutan Custom-mu</div>
+                    </div>
+                </div>
+
+                <div class="process-flow">
+                    <div class="process-step">
+                        <div class="step-number">01</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Brainstorming & Konsultasi</h3>
+                            <p>Kirimkan referensi desain, pilih palet warna benang, dan tentukan ukuran yang presisi
+                                untuk kenyamanan Anda.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">02</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Penawaran & Kesepakatan</h3>
+                            <p>Kami akan memberikan estimasi harga dan waktu pengerjaan. Setelah oke, proses perajutan
+                                akan segera dimulai.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">03</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Hand-Crafted with Love</h3>
+                            <p>Proses perajutan manual dimulai. Kami menjalin setiap helai benang dengan telaten untuk
+                                hasil yang sempurna.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">04</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Quality Check & Shipping</h3>
+                            <p>Hasil akhir diperiksa secara detail, dikemas secara estetik, dan siap dikirim ke alamat
+                                Anda.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section reveal">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <div class="kicker">FAQ</div>
+                        <div class="headline">Sering Ditanyakan</div>
+                    </div>
+                </div>
+                <div style="display: grid; gap: 16px; max-width: 800px; margin: 0 auto;">
+                    <details class="card" style="padding: 0;">
+                        <summary
+                            style="padding: 20px; cursor: pointer; font-weight: 700; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                            Berapa lama proses pengerjaan? <span>+</span>
+                        </summary>
+                        <div style="padding: 0 20px 20px; font-size: 14px; opacity: 0.8;">
+                            Tergantung tingkat kerumitan, biasanya memakan waktu 7 hingga 14 hari kerja setelah
+                            pembayaran.
+                        </div>
+                    </details>
+                    <details class="card" style="padding: 0;">
+                        <summary
+                            style="padding: 20px; cursor: pointer; font-weight: 700; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                            Apakah bisa menggunakan desain sendiri? <span>+</span>
+                        </summary>
+                        <div style="padding: 0 20px 20px; font-size: 14px; opacity: 0.8;">
+                            Tentu! Anda bisa mengirimkan foto referensi dari Pinterest atau gambar sendiri untuk kami
+                            buatkan versi rajutnya.
+                        </div>
+                    </details>
+                    <details class="card" style="padding: 0;">
+                        <summary
+                            style="padding: 20px; cursor: pointer; font-weight: 700; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                            Bagaimana cara mencuci produk rajut? <span>+</span>
+                        </summary>
+                        <div style="padding: 0 20px 20px; font-size: 14px; opacity: 0.8;">
+                            Disarankan mencuci manual dengan tangan (hand wash) dan dikeringkan di tempat teduh agar
+                            serat benang tetap terjaga.
+                        </div>
+                    </details>
                 </div>
             </div>
         </section>

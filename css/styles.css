@@ -739,15 +739,21 @@ body[data-theme="dark"] select {
   color: var(--text);
 }
 
-.btn-outline:hover {
+.btn.btn-outline:hover {
   background: var(--text);
   color: var(--bg);
 }
 
 .btn-danger {
-  border-color: #e15b5b;
-  color: #e15b5b;
   background: transparent;
+  border: 1px solid #ff4d4d;
+  color: #ff4d4d;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .btn-danger:hover {
