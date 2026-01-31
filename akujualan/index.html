@@ -147,6 +147,38 @@
             }
         }
 
+        /* Desktop Process Flow */
+        @media (min-width: 900px) {
+            .process-flow {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 24px;
+            }
+
+            .process-step {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 20px;
+            }
+
+            /* Horizontal connecting line */
+            .process-step::before {
+                width: 100%;
+                height: 1px;
+                top: 30px;
+                left: 50%;
+                bottom: auto;
+            }
+
+            .process-step:last-child::before {
+                display: none;
+            }
+
+            .step-content {
+                padding-top: 0;
+            }
+        }
+
         /* FAQ Styles */
         .faq-container {
             display: grid;
@@ -503,6 +535,25 @@
             background: #231e1b;
         }
 
+        /* Bundling Card Premium Styles (Desktop) */
+        @media (min-width: 900px) {
+            #akujualan-bundling .card {
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                transform-origin: center bottom;
+            }
+
+            #akujualan-bundling .card:hover {
+                transform: translateY(-8px) scale(1.02);
+                box-shadow: 0 20px 40px rgba(45, 36, 30, 0.1);
+                border-color: var(--accent);
+                z-index: 10;
+            }
+
+            body[data-theme="dark"] #akujualan-bundling .card:hover {
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            }
+        }
+
         /* Social Sidebar Styles */
         .social-sidebar {
             position: fixed;
@@ -760,10 +811,10 @@
 
         <section class="section reveal">
             <div class="container">
-                <div class="section-heading">
+                <div class="section-heading" style="text-align: center; display: block;">
                     <div>
-                        <div class="kicker" style="text-align: center;">Our Process</div>
-                        <div class="headline" style="text-align: center;">4 Langkah Menuju Crochet Custom-mu</div>
+                        <div class="kicker">Our Process</div>
+                        <div class="headline">4 Langkah Menuju Crochet Custom-mu</div>
                     </div>
                 </div>
 
@@ -866,10 +917,10 @@
         <section class="section reveal"
             style="background: rgba(166, 139, 124, 0.05); border-radius: 40px; margin: 0 20px;">
             <div class="container">
-                <div class="section-heading" style="padding-top: 60px;">
+                <div class="section-heading" style="padding-top: 60px; text-align: center; display: block;">
                     <div>
-                        <div class="kicker" style="text-align: center;">Special Bundling</div>
-                        <div class="headline" style="text-align: center;">Lebih Hemat dengan Paket</div>
+                        <div class="kicker">Special Bundling</div>
+                        <div class="headline">Lebih Hemat dengan Paket</div>
                     </div>
                 </div>
                 <div id="akujualan-bundling" class="card-grid"
