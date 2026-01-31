@@ -139,6 +139,76 @@
                 left: 24px;
             }
         }
+
+        /* FAQ Styles */
+        .faq-container {
+            display: grid;
+            gap: 16px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(166, 139, 124, 0.05);
+        }
+
+        .faq-item[open] {
+            border-color: var(--accent);
+            background: #fff;
+        }
+
+        .faq-summary {
+            padding: 24px;
+            cursor: pointer;
+            font-weight: 700;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text);
+            font-size: 16px;
+        }
+
+        .faq-summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-indicator {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid var(--line);
+            transition: all 0.3s ease;
+            font-size: 18px;
+            font-weight: 400;
+        }
+
+        .faq-item[open] .faq-indicator {
+            transform: rotate(45deg);
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .faq-content {
+            padding: 0 24px 24px;
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
     </style>
 </head>
 
@@ -176,8 +246,8 @@
                     <div class="kicker">Tentang kami</div>
                     <div class="headline">Menghidupkan Benang, Mewujudkan Kenangan</div>
                     <p>
-                        <strong>akujualan.co</strong> adalah studio kerajinan tangan yang berfokus pada rajutan custom
-                        manual.
+                        <strong>akujualan.co</strong> adalah studio kerajinan tangan yang berfokus pada <strong>crochet
+                            custom manual</strong>.
                         Setiap helai benang dijalin dengan kesabaran untuk menghasilkan produk yang memiliki jiwa dan
                         keunikan tersendiri.
                     </p>
@@ -189,22 +259,22 @@
                 </div>
                 <div>
                     <div class="headline">Custom Made</div>
-                    <p>Punya ide rajutan impian? Mulai dari cardigan, boneka (amigurumi), hingga dekorasi rumah.</p>
-                    <a href="https://wa.me/6282264330546?text=Halo%20akujualan.co%2C%20saya%20mau%20tanya%20mengenai%20rajutan%20custom."
+                    <p>Punya ide crochet impian? Mulai dari cardigan, boneka (amigurumi), hingga dekorasi rumah.</p>
+                    <a href="https://wa.me/6282264330546?text=Halo%20akujualan.co%2C%20saya%20mau%20tanya%20mengenai%20crochet%20custom."
                         class="btn" style="display: inline-block; margin-top: 16px; text-decoration: none;">Konsultasi
-                        Rajutan</a>
+                        Crochet</a>
                 </div>
             </div>
         </section>
 
         <div class="marquee-section" style="background: var(--text); color: var(--bg);">
             <div class="marquee-content">
-                <div class="marquee-item">CUSTOM KNITTING</div>
-                <div class="marquee-item">HAND-MADE QUALITY</div>
+                <div class="marquee-item">CUSTOM CROCHET</div>
+                <div class="marquee-item">HAND MADE QUALITY</div>
                 <div class="marquee-item">SLOW FASHION</div>
                 <div class="marquee-item">EXCLUSSIVE CRAFT</div>
-                <div class="marquee-item">CUSTOM KNITTING</div>
-                <div class="marquee-item">HAND-MADE QUALITY</div>
+                <div class="marquee-item">CUSTOM CROCHET</div>
+                <div class="marquee-item">HAND MADE QUALITY</div>
                 <div class="marquee-item">SLOW FASHION</div>
                 <div class="marquee-item">EXCLUSSIVE CRAFT</div>
             </div>
@@ -229,7 +299,7 @@
                 <div class="section-heading">
                     <div>
                         <div class="kicker" style="text-align: center;">Our Process</div>
-                        <div class="headline" style="text-align: center;">4 Langkah Menuju Rajutan Custom-mu</div>
+                        <div class="headline" style="text-align: center;">4 Langkah Menuju Crochet Custom-mu</div>
                     </div>
                 </div>
 
@@ -238,32 +308,32 @@
                         <div class="step-number">01</div>
                         <div class="step-content">
                             <h3 class="step-title">Brainstorming & Konsultasi</h3>
-                            <p>Kirimkan referensi desain, pilih palet warna benang, dan tentukan ukuran yang presisi
-                                untuk kenyamanan Anda.</p>
+                            <p>Kirimkan referensi desain atau pola yang Anda inginkan. Kita akan tentukan palet warna
+                                benang dan ukuran yang paling pas untuk Anda.</p>
                         </div>
                     </div>
                     <div class="process-step">
                         <div class="step-number">02</div>
                         <div class="step-content">
-                            <h3 class="step-title">Penawaran & Kesepakatan</h3>
-                            <p>Kami akan memberikan estimasi harga dan waktu pengerjaan. Setelah oke, proses perajutan
-                                akan segera dimulai.</p>
+                            <h3 class="step-title">Penawaran & Slot Booking</h3>
+                            <p>Kami berikan estimasi biaya dan jadwal pengerjaan. Karena dikerjakan manual, kami
+                                menggunakan sistem slot untuk menjaga kualitas hasil akhir.</p>
                         </div>
                     </div>
                     <div class="process-step">
                         <div class="step-number">03</div>
                         <div class="step-content">
-                            <h3 class="step-title">Hand-Crafted with Love</h3>
-                            <p>Proses perajutan manual dimulai. Kami menjalin setiap helai benang dengan telaten untuk
-                                hasil yang sempurna.</p>
+                            <h3 class="step-title">Hand-Stitched with Precision</h3>
+                            <p>Proses merajut (crochet) dimulai. Setiap tusukan benang dikerjakan dengan tangan secara
+                                telaten untuk memastikan detail yang sempurna.</p>
                         </div>
                     </div>
                     <div class="process-step">
                         <div class="step-number">04</div>
                         <div class="step-content">
-                            <h3 class="step-title">Quality Check & Shipping</h3>
-                            <p>Hasil akhir diperiksa secara detail, dikemas secara estetik, dan siap dikirim ke alamat
-                                Anda.</p>
+                            <h3 class="step-title">Blocking & Quality Control</h3>
+                            <p>Produk melalui tahap <em>blocking</em> untuk hasil bentuk yang sempurna, dikemas secara
+                                estetik, dan siap dikirim ke rumah Anda.</p>
                         </div>
                     </div>
                 </div>
@@ -278,35 +348,36 @@
                         <div class="headline">Sering Ditanyakan</div>
                     </div>
                 </div>
-                <div style="display: grid; gap: 16px; max-width: 800px; margin: 0 auto;">
-                    <details class="card" style="padding: 0;">
-                        <summary
-                            style="padding: 20px; cursor: pointer; font-weight: 700; list-style: none; display: flex; justify-content: space-between; align-items: center;">
-                            Berapa lama proses pengerjaan? <span>+</span>
+                <div class="faq-container">
+                    <details class="faq-item">
+                        <summary class="faq-summary">
+                            Berapa lama proses pembuatan satu produk crochet?
+                            <div class="faq-indicator">+</div>
                         </summary>
-                        <div style="padding: 0 20px 20px; font-size: 14px; opacity: 0.8;">
-                            Tergantung tingkat kerumitan, biasanya memakan waktu 7 hingga 14 hari kerja setelah
-                            pembayaran.
+                        <div class="faq-content">
+                            Tergantung tingkat kerumitan dan ukuran. Biasanya memakan waktu 7 hingga 14 hari kerja
+                            setelah pembayaran dikonfirmasi dan slot booking tersedia.
                         </div>
                     </details>
-                    <details class="card" style="padding: 0;">
-                        <summary
-                            style="padding: 20px; cursor: pointer; font-weight: 700; list-style: none; display: flex; justify-content: space-between; align-items: center;">
-                            Apakah bisa menggunakan desain sendiri? <span>+</span>
+                    <details class="faq-item">
+                        <summary class="faq-summary">
+                            Apakah saya bisa request desain/pola sendiri?
+                            <div class="faq-indicator">+</div>
                         </summary>
-                        <div style="padding: 0 20px 20px; font-size: 14px; opacity: 0.8;">
-                            Tentu! Anda bisa mengirimkan foto referensi dari Pinterest atau gambar sendiri untuk kami
-                            buatkan versi rajutnya.
+                        <div class="faq-content">
+                            Sangat bisa! Anda dapat mengirimkan foto referensi atau sketsa ide Anda. Kami akan
+                            mendiskusikan kemungkinan teknisnya agar hasil akhir tetap kuat dan unik.
                         </div>
                     </details>
-                    <details class="card" style="padding: 0;">
-                        <summary
-                            style="padding: 20px; cursor: pointer; font-weight: 700; list-style: none; display: flex; justify-content: space-between; align-items: center;">
-                            Bagaimana cara mencuci produk rajut? <span>+</span>
+                    <details class="faq-item">
+                        <summary class="faq-summary">
+                            Bagaimana cara merawat produk crochet agar awet?
+                            <div class="faq-indicator">+</div>
                         </summary>
-                        <div style="padding: 0 20px 20px; font-size: 14px; opacity: 0.8;">
-                            Disarankan mencuci manual dengan tangan (hand wash) dan dikeringkan di tempat teduh agar
-                            serat benang tetap terjaga.
+                        <div class="faq-content">
+                            Disarankan untuk mencuci secara manual menggunakan tangan (hand wash) dengan deterjen
+                            lembut. Jangan diperas terlalu kuat dan jemur di permukaan datar (tidak digantung) untuk
+                            menjaga bentuk aslinya.
                         </div>
                     </details>
                 </div>
