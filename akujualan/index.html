@@ -344,6 +344,32 @@
                 align-items: center;
             }
         }
+
+        /* Hero Enhanced Styles */
+        .hero-title-group {
+            margin-bottom: 48px;
+        }
+
+        .hero-headline {
+            font-size: clamp(40px, 8vw, 72px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin: 16px 0;
+            color: var(--text);
+            letter-spacing: -2px;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 900px) {
+            .hero-headline {
+                font-size: 48px;
+            }
+        }
     </style>
 </head>
 
@@ -366,12 +392,18 @@
     </header>
 
     <main>
-        <section class="hero reveal">
+        <section class="hero reveal" style="padding-top: 120px; overflow: hidden;">
             <div class="container" style="text-align: center;">
-                <div class="kicker" style="margin-bottom: 32px; opacity: 0.8;">The Art of Slow Living & Craftsmanship
+                <div class="hero-title-group">
+                    <div class="kicker" style="opacity: 0.8; letter-spacing: 2px;">DIBUAT PERLAHAN, DIPAKAI SELAMANYA
+                    </div>
+                    <h1 class="hero-headline">Every Stitch Tells<br>A Story.</h1>
                 </div>
-                <img class="hero-image" src="../assets/akujualan-hero.png" alt="Rajutan Custom akujualan.co"
-                    style="max-width: 100%; height: auto;" />
+
+                <div class="hero-image-wrapper">
+                    <img class="hero-image" src="../assets/akujualan-hero.png" alt="Crochet Custom akujualan.co"
+                        style="max-width: 100%; height: auto; position: relative; z-index: 2;" />
+                </div>
             </div>
         </section>
 
