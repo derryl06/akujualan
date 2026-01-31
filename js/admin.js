@@ -76,7 +76,7 @@ const ensureConfigured = () => {
 const fetchItems = async () => {
   const { data, error } = await window.supabaseClient
     .from("portfolio_items")
-    .select("id, title, category, description, image_url, image_path, image_urls, image_paths, sort_order, views, created_at")
+    .select("id, title, category, brand, description, image_url, image_path, image_urls, image_paths, sort_order, views, created_at")
     .order("sort_order", { ascending: true })
     .order("created_at", { ascending: false });
 
@@ -104,7 +104,7 @@ const fetchItems = async () => {
     const info = document.createElement("div");
     info.className = "admin-info";
     info.innerHTML = `
-      <div class="admin-title">${item.title || "Untitled"}</div>
+      <div class="admin-title">${item.title || "Untitled"} <small class="kicker" style="font-size: 10px; padding: 2px 6px; border: 1px solid var(--line); border-radius: 4px; margin-left: 8px;">${item.brand || "akugambar"}</small></div>
       <div class="admin-meta">${item.category || "-"}</div>
     `;
 
@@ -119,6 +119,7 @@ const fetchItems = async () => {
       if (!confirm("Edit karya ini? Form akan terisi data yang dipilih.")) return;
       editingItem = item;
       itemForm.querySelector("#item-title").value = item.title || "";
+      itemForm.querySelector("#item-brand").value = item.brand || "akugambar";
       itemForm.querySelector("#item-category").value = item.category || "branding";
       itemForm.querySelector("#item-description").value = item.description || "";
       selectedFiles = [];
@@ -280,6 +281,7 @@ itemForm.addEventListener("submit", async (event) => {
   if (!ensureConfigured()) return;
 
   const title = itemForm.querySelector("#item-title").value.trim();
+  const brand = itemForm.querySelector("#item-brand").value;
   const category = itemForm.querySelector("#item-category").value;
   const description = itemForm.querySelector("#item-description").value.trim();
   const imageFileList = selectedFiles;
@@ -342,6 +344,7 @@ itemForm.addEventListener("submit", async (event) => {
 
   const payload = {
     title,
+    brand,
     category,
     description,
     image_url: imageUrl,

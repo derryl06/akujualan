@@ -65,12 +65,27 @@
                 <input id="item-title" type="text" required />
               </div>
               <div>
+                <label for="item-brand">Website</label>
+                <select id="item-brand" required>
+                  <option value="akugambar">akugambar.co (Desain)</option>
+                  <option value="akujualan">akujualan.co (Rajut)</option>
+                </select>
+              </div>
+              <div>
                 <label for="item-category">Kategori</label>
                 <select id="item-category" required>
-                  <option value="branding">Branding</option>
-                  <option value="poster">Poster</option>
-                  <option value="logo">Logo</option>
-                  <option value="ilustrasi">Ilustrasi</option>
+                  <optgroup label="akugambar (Desain)">
+                    <option value="branding">Branding</option>
+                    <option value="poster">Poster</option>
+                    <option value="logo">Logo</option>
+                    <option value="ilustrasi">Ilustrasi</option>
+                  </optgroup>
+                  <optgroup label="akujualan (Rajut)">
+                    <option value="cardigan">Cardigan</option>
+                    <option value="amigurumi">Amigurumi/Boneka</option>
+                    <option value="dekorasi">Dekorasi</option>
+                    <option value="accessories">Aksesoris</option>
+                  </optgroup>
                 </select>
               </div>
               <div class="full">

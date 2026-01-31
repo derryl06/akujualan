@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description"
+        content="akujualan.co — Jasa rajutan custom premium dengan kualitas hand-crafted yang telaten." />
+    <meta name="keywords"
+        content="rajutan custom, knitting indonesia, kerajinan tangan, baju rajut custom, akujualan" />
+    <link rel="canonical" href="https://derryl06.github.io/portfolio_akugambar/akujualan/" />
+    <title>akujualan.co — Custom Knitting & Hand-Crafted Goods</title>
+    <link rel="icon" type="image/png" href="../assets/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@400;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <style>
+        :root {
+            --bg: #fcfaf7;
+            --text: #2d241e;
+            --line: #e5e0d8;
+            --muted: #8a7e72;
+            --accent: #a68b7c;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+        }
+
+        .hero-image {
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(45, 36, 30, 0.1);
+        }
+
+        .footer-cta {
+            color: var(--accent);
+        }
+
+        .btn {
+            background: var(--text);
+            color: var(--bg);
+        }
+
+        .btn:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .kicker {
+            color: var(--accent);
+        }
+
+        /* Override for grainy texture on warm bg */
+        body::before {
+            opacity: 0.08;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container header-inner">
+            <div class="brand">akujualan.co</div>
+            <nav style="display: flex; gap: 24px; align-items: center;">
+                <a href="../index.html"
+                    style="text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px;">akugambar.co</a>
+                <button class="theme-toggle" type="button" aria-label="Toggle mode malam/siang" aria-pressed="false"
+                    style="display: none;">
+                    <span class="sr-only">Toggle mode malam/siang</span>
+                    <span class="toggle-icon sun" aria-hidden="true">☀</span>
+                    <span class="toggle-icon moon" aria-hidden="true">☾</span>
+                    <span class="toggle-thumb" aria-hidden="true"></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero reveal">
+            <div class="container" style="text-align: center;">
+                <div class="kicker" style="margin-bottom: 32px; opacity: 0.8;">The Art of Slow Living & Craftsmanship
+                </div>
+                <img class="hero-image" src="../assets/akujualan-hero.png" alt="Rajutan Custom akujualan.co"
+                    style="max-width: 100%; height: auto;" />
+            </div>
+        </section>
+
+        <section class="section reveal">
+            <div class="container two-col">
+                <div>
+                    <div class="kicker">Tentang kami</div>
+                    <div class="headline">Menghidupkan Benang, Mewujudkan Kenangan</div>
+                    <p>
+                        <strong>akujualan.co</strong> adalah studio kerajinan tangan yang berfokus pada rajutan custom
+                        manual.
+                        Setiap helai benang dijalin dengan kesabaran untuk menghasilkan produk yang memiliki jiwa dan
+                        keunikan tersendiri.
+                    </p>
+                    <p>
+                        Kami percaya bahwa sesuatu yang dibuat dengan tangan memiliki nilai yang tidak bisa digantikan
+                        oleh mesin.
+                        Inilah filosofi yang juga kami bawa ke unit kreatif kami, <strong>akugambar.co</strong>.
+                    </p>
+                </div>
+                <div>
+                    <div class="headline">Custom Made</div>
+                    <p>Punya ide rajutan impian? Mulai dari cardigan, boneka (amigurumi), hingga dekorasi rumah.</p>
+                    <a href="https://wa.me/6282264330546?text=Halo%20akujualan.co%2C%20saya%20mau%20tanya%20mengenai%20rajutan%20custom."
+                        class="btn" style="display: inline-block; margin-top: 16px; text-decoration: none;">Konsultasi
+                        Rajutan</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="marquee-section" style="background: var(--text); color: var(--bg);">
+            <div class="marquee-content">
+                <div class="marquee-item">CUSTOM KNITTING</div>
+                <div class="marquee-item">HAND-MADE QUALITY</div>
+                <div class="marquee-item">SLOW FASHION</div>
+                <div class="marquee-item">EXCLUSSIVE CRAFT</div>
+                <div class="marquee-item">CUSTOM KNITTING</div>
+                <div class="marquee-item">HAND-MADE QUALITY</div>
+                <div class="marquee-item">SLOW FASHION</div>
+                <div class="marquee-item">EXCLUSSIVE CRAFT</div>
+            </div>
+        </div>
+
+        <section class="section reveal">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <div class="kicker">Karya Kami</div>
+                        <div class="headline">Koleksi Rajutan Pilihan</div>
+                    </div>
+                </div>
+                <div id="akujualan-portfolio" class="reveal-stagger">
+                    <div class="muted">Memuat karya rajut...</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section reveal">
+            <div class="container" style="text-align: center;">
+                <div class="kicker">Unit Kreatif Kami</div>
+                <div class="headline">Butuh Desain Visual?</div>
+                <p style="max-width: 600px; margin: 0 auto 32px;">Kunjungi unit desain kami untuk kebutuhan branding,
+                    logo, dan ilustrasi digital yang presisi.</p>
+                <a href="../index.html" class="btn btn-outline" style="text-decoration: none;">Lihat akugambar.co
+                    &rarr;</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <div class="footer-brand">akujualan.co</div>
+                <p class="footer-tagline">Menyampaikan kasih melalui setiap jeratan benang rajut custom.</p>
+                <div class="footer-small">© 2026 akujualan.co — Parent of <strong>akugambar.co</strong></div>
+                <div class="footer-small">Banyuwangi, Indonesia</div>
+            </div>
+            <div class="footer-col">
+                <div class="kicker">Navigasi</div>
+                <ul class="footer-links">
+                    <li><a href="../index.html">akugambar.co</a></li>
+                    <li><a href="../portfolio.html">Portofolio Desain</a></li>
+                    <li><a href="../services.html">Layanan Desain</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <div class="kicker">Hubungi Kami</div>
+                <div class="footer-socials">
+                    <a href="https://www.instagram.com/akujualan.co/" target="_blank">Instagram (@akujualan.co)</a>
+                    <a href="https://wa.me/6282264330546" class="footer-cta">WhatsApp &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+        <button class="lightbox-nav prev" type="button" aria-label="Sebelumnya">‹</button>
+        <button class="lightbox-close" type="button" aria-label="Tutup">✕</button>
+        <button class="lightbox-nav next" type="button" aria-label="Berikutnya">›</button>
+        <img class="lightbox-img" alt="Pratinjau karya" />
+        <div class="lightbox-info">
+            <div class="lightbox-title"></div>
+            <div class="lightbox-desc"></div>
+        </div>
+    </div>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/config.js"></script>
+    <script defer src="../js/supabase.js"></script>
+    <script defer src="../js/index.js"></script>
+    <script defer src="../js/akujualan.js"></script>
+    <script defer src="../js/analytics.js"></script>
+    <button id="backToTop" class="back-to-top" aria-label="Kembali ke atas">↑</button>
+    <script>
+        // Hero Parallax for akujualan
+        const heroImg = document.querySelector(".hero-image");
+        if (heroImg) {
+            window.addEventListener("mousemove", (e) => {
+                const { clientX, clientY } = e;
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
+                const moveX = (clientX - centerX) / 60;
+                const moveY = (clientY - centerY) / 60;
+                heroImg.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+            });
+        }
+    </script>
+</body>
+
+</html>

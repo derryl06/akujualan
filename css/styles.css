@@ -17,6 +17,25 @@ body {
   color: var(--text);
   font-family: "Poppins", system-ui, -apple-system, sans-serif;
   line-height: 1.35;
+  position: relative;
+}
+
+/* Base Grainy Texture Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Cfilter id='noiseFilter'%3%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3%3C/filter%3%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3%3C/svg%3%3E");
+}
+
+body[data-theme="dark"]::before {
+  opacity: 0.06;
 }
 
 /* Custom Scrollbar */
@@ -863,28 +882,92 @@ body[data-theme="dark"] select {
 }
 
 footer {
-  padding: 40px 0 60px;
+  padding: 80px 0 40px;
   border-top: 1px solid var(--line);
+  background: var(--bg);
 }
 
 .footer-grid {
   display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 48px;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
   gap: 16px;
 }
 
 .footer-brand {
+  font-size: 24px;
   font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.footer-tagline {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 280px;
+  line-height: 1.6;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+
+.footer-links a:hover {
+  opacity: 0.6;
+}
+
+.footer-socials {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-socials a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.footer-socials a:hover {
+  color: var(--text);
 }
 
 .footer-small {
   font-size: 12px;
   color: var(--muted);
+  margin-top: 24px;
 }
 
 .footer-cta {
-  font-weight: 700;
+  font-weight: 800;
   text-decoration: none;
   color: var(--text);
+  margin-top: 8px;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
 }
 
 /* Lightbox preview */
