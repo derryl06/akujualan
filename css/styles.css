@@ -69,9 +69,9 @@ body[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
 body[data-theme="dark"] {
   --bg: #111111;
   --text: #ffffff;
-  --muted: #ffffff;
+  --muted: #a0a0a0;
   --card: #1b1b1b;
-  --line: #ffffff;
+  --line: #333333;
 }
 
 body[data-theme="dark"] .social-list a {
@@ -1143,36 +1143,49 @@ body.lightbox-active .social-sidebar {
 /* Testimonials */
 .testimonial-grid {
   display: grid;
-  gap: 24px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  align-items: stretch;
 }
 
 .testimonial-card {
   background: var(--card);
-  padding: 32px;
-  border-radius: 20px;
+  padding: 40px;
+  border-radius: 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  gap: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--line);
+  transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  border-color: var(--accent);
 }
 
 .testimonial-text {
   font-size: 16px;
   font-style: italic;
   color: var(--text);
-  line-height: 1.6;
+  line-height: 1.7;
   position: relative;
+  z-index: 2;
 }
 
 .testimonial-text::before {
   content: "“";
-  font-family: inherit;
-  font-size: 40px;
+  font-family: "Permanent Marker", cursive;
+  font-size: 60px;
   position: absolute;
-  left: -20px;
-  top: -15px;
-  opacity: 0.1;
+  left: -15px;
+  top: -30px;
+  opacity: 0.07;
+  color: var(--accent);
 }
 
 .testimonial-author {
@@ -1195,11 +1208,11 @@ body.lightbox-active .social-sidebar {
 
 /* Testimonial Form */
 .testimonial-form-card {
-  background: var(--card);
-  padding: 32px;
-  border-radius: 20px;
-  border: 1px dashed var(--line);
-  margin-top: 40px;
+  background: rgba(var(--text-rgb), 0.03);
+  padding: 40px;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  margin-top: 60px;
 }
 
 .testimonial-form-card .headline {
@@ -1209,12 +1222,70 @@ body.lightbox-active .social-sidebar {
 
 .testimonial-form {
   display: grid;
-  gap: 16px;
-  margin-top: 20px;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.form-group-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-left: 4px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(166, 139, 124, 0.1);
+  background: var(--card);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
 }
 
 .testimonial-form .btn {
   justify-self: start;
+  padding: 14px 36px;
+  font-weight: 700;
+}
+
+.form-status {
+  font-size: 14px;
+  margin-top: 4px;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.form-status.is-error {
+  color: #e63946;
 }
 
 /* FAQ Accordion */
