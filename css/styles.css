@@ -1450,7 +1450,8 @@ body[data-theme="dark"] .faq-question:hover {
   align-items: center;
   gap: 12px;
   pointer-events: auto;
-  transition: all 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Bouncy premium feel */
   overflow: hidden;
 }
 
@@ -1500,21 +1501,24 @@ body[data-theme="dark"] .faq-question:hover {
 
 /* Compact State (Only the Dot) */
 .todays-craft-badge.is-compact {
-  bottom: 24px;
+  bottom: 6px;
 }
 
 .todays-craft-badge.is-compact .todays-craft-inner {
-  background: transparent;
-  border: none;
+  background: rgba(0, 0, 0, 0);
+  /* Fade to transparent instead of transparent keyword */
+  border-color: transparent;
   box-shadow: none;
   padding: 8px;
-  /* Give some hit area */
+  border-radius: 50%;
 }
 
 .todays-craft-badge.is-compact .status-content {
   max-width: 0;
   opacity: 0;
+  white-space: nowrap;
   pointer-events: none;
+  margin-left: 0;
 }
 
 /* Hover to Show Full Card even when Compact */
@@ -1527,8 +1531,9 @@ body[data-theme="dark"] .faq-question:hover {
 }
 
 .todays-craft-badge.is-compact:hover .status-content {
-  max-width: 300px;
+  max-width: 250px;
   opacity: 1;
+  margin-left: 12px;
 }
 
 body[data-theme="dark"] .todays-craft-inner {
