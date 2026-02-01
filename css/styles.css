@@ -1428,42 +1428,37 @@ body[data-theme="dark"] .faq-question:hover {
 }
 
 /* Today's Craft Badge & Dynamic Island */
+/* Minimalist Live Status (Pulsing Dot Only) */
 .todays-craft-badge {
   position: fixed;
-  bottom: 24px;
-  left: 24px;
+  bottom: 30px;
+  left: 30px;
   z-index: 3000;
-  max-width: 280px;
   display: none;
   /* Shown via JS */
-  transition: all 0.6s cubic-bezier(0.2, 1, 0.3, 1);
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .todays-craft-inner {
-  background: var(--bg);
-  border: 1px solid var(--line);
-  padding: 12px 18px;
-  border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
   gap: 12px;
-  pointer-events: auto;
-  transition: all 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+  cursor: help;
+  position: relative;
 }
 
 .status-dot-wrapper {
   position: relative;
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
 }
 
 .status-dot {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   background: #22c55e;
   border-radius: 50%;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
 }
 
 .status-dot-pulse {
@@ -1472,6 +1467,30 @@ body[data-theme="dark"] .faq-question:hover {
   background: #22c55e;
   border-radius: 50%;
   animation: craft-pulse 2s infinite;
+}
+
+/* Tooltip Styling */
+.status-content {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 0;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  padding: 10px 16px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: max-content;
+  max-width: 220px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.todays-craft-badge:hover .status-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
 .status-kicker {
@@ -1489,50 +1508,7 @@ body[data-theme="dark"] .faq-question:hover {
   color: var(--text);
 }
 
-.status-content {
-  display: flex;
-  flex-direction: column;
-  transition: all 0.5s ease;
-  overflow: hidden;
-}
-
-/* Shrunk State (Green Dot) */
-.todays-craft-badge.is-island {
-  max-width: 60px;
-}
-
-.todays-craft-badge.is-island .todays-craft-inner {
-  padding: 12px;
-  border-radius: 99px;
-  gap: 0;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.todays-craft-badge.is-island .status-content {
-  max-width: 0;
-  opacity: 0;
-  margin-left: 0;
-}
-
-/* Expand on Hover when shrunk */
-.todays-craft-badge.is-island:hover {
-  max-width: 300px;
-}
-
-.todays-craft-badge.is-island:hover .todays-craft-inner {
-  padding: 12px 18px;
-  gap: 12px;
-  background: var(--bg);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-}
-
-.todays-craft-badge.is-island:hover .status-content {
-  max-width: 250px;
-  opacity: 1;
-  margin-left: 0;
-}
-
-body[data-theme="dark"] .todays-craft-badge.is-island:hover .todays-craft-inner {
+body[data-theme="dark"] .status-content {
   background: var(--card);
 }
 
