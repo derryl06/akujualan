@@ -36,8 +36,8 @@ const loadAkujualanPortfolio = async () => {
         const card = document.createElement("div");
         card.className = "portfolio-card reveal";
         card.dataset.category = item.category || "other";
-        card.setAttribute("data-title", item.title || "");
         card.setAttribute("data-description", item.description || "");
+        card.setAttribute("data-price", item.price || "");
         card.setAttribute("data-images", JSON.stringify(item.image_urls || [item.image_url]));
 
         const displayPrice = item.price ? (item.price.toLowerCase().includes("rp") ? item.price : `Rp ${item.price}`) : "";
@@ -64,10 +64,11 @@ const loadAkujualanPortfolio = async () => {
             const images = JSON.parse(card.getAttribute("data-images"));
             const title = item.title || "";
             const desc = item.description || "";
+            const price = item.price || "";
 
             // Check if global openLightbox exists
             if (window.openLightbox) {
-                window.openLightbox(images, 0, title, desc);
+                window.openLightbox(images, 0, title, desc, price);
             } else {
                 console.warn("Lightbox function not found");
             }
@@ -113,7 +114,7 @@ const loadAkujualanPortfolio = async () => {
                 card.addEventListener("click", () => {
                     const images = item.image_urls && item.image_urls.length ? item.image_urls : [item.image_url];
                     if (window.openLightbox) {
-                        window.openLightbox(images, 0, item.title, item.description);
+                        window.openLightbox(images, 0, item.title, item.description, item.price);
                     }
                 });
 

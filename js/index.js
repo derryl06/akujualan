@@ -42,15 +42,25 @@ const showLightboxImage = () => {
   lightboxImg.src = lightboxImages[lightboxIndex];
 };
 
-const openLightbox = (images, index = 0, title = "", desc = "") => {
+const openLightbox = (images, index = 0, title = "", desc = "", price = "") => {
   if (!lightbox) return;
   lightboxImages = images;
   lightboxIndex = index;
 
   const titleEl = lightbox.querySelector(".lightbox-title");
   const descEl = lightbox.querySelector(".lightbox-desc");
+  const priceEl = lightbox.querySelector(".lightbox-price");
+
   if (titleEl) titleEl.textContent = title;
   if (descEl) descEl.textContent = desc;
+  if (priceEl) {
+    if (price) {
+      priceEl.textContent = price.toLowerCase().includes("rp") ? price : `Rp ${price}`;
+      priceEl.style.display = "block";
+    } else {
+      priceEl.style.display = "none";
+    }
+  }
 
   showLightboxImage();
   lightbox.classList.add("is-open");
@@ -95,8 +105,9 @@ if (cardGrid) {
 
     const title = card.getAttribute("data-title") || "";
     const desc = card.getAttribute("data-description") || "";
+    const price = card.getAttribute("data-price") || "";
 
-    openLightbox(images, 0, title, desc);
+    openLightbox(images, 0, title, desc, price);
     const id = card.getAttribute("data-id");
     if (id) incrementViews(id);
   });
@@ -139,6 +150,7 @@ const loadLatestWorks = async () => {
     card.setAttribute("data-id", item.id);
     card.setAttribute("data-title", item.title || "");
     card.setAttribute("data-description", item.description || "");
+    card.setAttribute("data-price", item.price || "");
     card.style.minHeight = "200px";
 
     const img = document.createElement("img");
