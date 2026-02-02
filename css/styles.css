@@ -1120,6 +1120,19 @@ footer {
   }
 }
 
+body.lightbox-active {
+  overflow: hidden;
+}
+
+body.lightbox-active .back-to-top,
+body.lightbox-active .social-fab,
+body.lightbox-active .todays-craft-badge,
+body.lightbox-active .social-sidebar {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
 .lightbox-media {
   position: relative;
   background: #fdfcfb;
@@ -1300,26 +1313,42 @@ body[data-theme="dark"] .lightbox-nav {
 
 @media (max-width: 991px) {
   .lightbox {
-    padding: 20px;
+    padding: 16px;
+    align-items: flex-start;
+    /* Start from top to allow natural scroll */
+    overflow-y: auto;
   }
 
   .lightbox-container {
-    height: 90vh;
-    max-height: 90vh;
-    grid-template-rows: auto 1fr;
+    height: auto;
+    max-height: none;
+    grid-template-rows: auto auto;
+    border-radius: 24px;
+    margin: auto 0;
+    /* Vertical centering while allowed to grow */
   }
 
   .lightbox-media {
-    min-height: 350px;
-    height: 350px;
+    min-height: 300px;
+    height: auto;
+    aspect-ratio: 1/1;
   }
 
   .lightbox-info {
-    padding: 32px 24px;
+    padding: 32px 20px;
+    overflow-y: visible;
+    /* Let the main lightbox backdrop handle scroll */
   }
 
   .lightbox-title {
-    font-size: 28px;
+    font-size: 26px;
+  }
+
+  .lightbox-close {
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
   }
 }
 
