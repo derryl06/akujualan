@@ -42,7 +42,7 @@ const showLightboxImage = () => {
   lightboxImg.src = lightboxImages[lightboxIndex];
 };
 
-const openLightbox = (images, index = 0, title = "", desc = "", price = "") => {
+const openLightbox = (images, index = 0, title = "", desc = "", price = "", kicker = "") => {
   if (!lightbox) return;
   lightboxImages = images;
   lightboxIndex = index;
@@ -50,9 +50,12 @@ const openLightbox = (images, index = 0, title = "", desc = "", price = "") => {
   const titleEl = lightbox.querySelector(".lightbox-title");
   const descEl = lightbox.querySelector(".lightbox-desc");
   const priceEl = lightbox.querySelector(".lightbox-price");
+  const kickerEl = lightbox.querySelector(".lightbox-kicker");
 
   if (titleEl) titleEl.textContent = title;
   if (descEl) descEl.textContent = desc;
+  if (kickerEl) kickerEl.textContent = kicker || "Crochet";
+
   if (priceEl) {
     if (price) {
       priceEl.textContent = price.toLowerCase().includes("rp") ? price : `Rp ${price}`;
@@ -106,8 +109,9 @@ if (cardGrid) {
     const title = card.getAttribute("data-title") || "";
     const desc = card.getAttribute("data-description") || "";
     const price = card.getAttribute("data-price") || "";
+    const kicker = card.getAttribute("data-category") || "";
 
-    openLightbox(images, 0, title, desc, price);
+    openLightbox(images, 0, title, desc, price, kicker);
     const id = card.getAttribute("data-id");
     if (id) incrementViews(id);
   });

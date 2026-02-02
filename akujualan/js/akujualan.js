@@ -65,10 +65,11 @@ const loadAkujualanPortfolio = async () => {
             const title = item.title || "";
             const desc = item.description || "";
             const price = item.price || "";
+            const kicker = item.category || "Crochet";
 
             // Check if global openLightbox exists
             if (window.openLightbox) {
-                window.openLightbox(images, 0, title, desc, price);
+                window.openLightbox(images, 0, title, desc, price, kicker);
             } else {
                 console.warn("Lightbox function not found");
             }
@@ -114,7 +115,7 @@ const loadAkujualanPortfolio = async () => {
                 card.addEventListener("click", () => {
                     const images = item.image_urls && item.image_urls.length ? item.image_urls : [item.image_url];
                     if (window.openLightbox) {
-                        window.openLightbox(images, 0, item.title, item.description, item.price);
+                        window.openLightbox(images, 0, item.title, item.description, item.price, item.category);
                     }
                 });
 
