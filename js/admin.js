@@ -65,6 +65,7 @@ const resetForm = () => {
   selectedFiles = [];
   renderPreviews([]);
   itemForm.querySelector("#item-title").focus();
+  itemForm.querySelector("#item-price").value = "";
   itemForm.querySelector("#submit-btn").textContent = "Simpan";
 };
 
@@ -85,7 +86,7 @@ const ensureConfigured = () => {
 const fetchItems = async () => {
   const { data, error } = await window.supabaseClient
     .from("portfolio_items")
-    .select("id, title, category, brand, description, image_url, image_path, image_urls, image_paths, sort_order, views, created_at")
+    .select("id, title, category, brand, description, price, image_url, image_path, image_urls, image_paths, sort_order, views, created_at")
     .order("sort_order", { ascending: true })
     .order("created_at", { ascending: false });
 
@@ -121,7 +122,7 @@ const fetchItems = async () => {
     info.className = "admin-info";
     info.innerHTML = `
       <div class="admin-title">${item.title || "Untitled"} <small class="kicker" style="font-size: 10px; padding: 2px 6px; border: 1px solid var(--line); border-radius: 4px; margin-left: 8px;">${item.brand || "akugambar"}</small></div>
-      <div class="admin-meta">${item.category || "-"}</div>
+      <div class="admin-meta">${item.category || "-"} ${item.price ? `• <strong>Rp ${item.price}</strong>` : ""}</div>
     `;
 
     const actions = document.createElement("div");
@@ -138,6 +139,7 @@ const fetchItems = async () => {
       itemForm.querySelector("#item-brand").value = item.brand || "akugambar";
       itemForm.querySelector("#item-category").value = item.category || "branding";
       itemForm.querySelector("#item-description").value = item.description || "";
+      itemForm.querySelector("#item-price").value = item.price || "";
       selectedFiles = [];
       renderPreviews((item.image_urls || []).map((url) => ({
         name: url,
@@ -391,6 +393,7 @@ itemForm.addEventListener("submit", async (event) => {
   const brand = itemForm.querySelector("#item-brand").value;
   const category = itemForm.querySelector("#item-category").value;
   const description = itemForm.querySelector("#item-description").value.trim();
+  const price = itemForm.querySelector("#item-price").value.trim();
   const imageFileList = selectedFiles;
 
   let imageUrl = editingItem?.image_url || "";
@@ -454,6 +457,7 @@ itemForm.addEventListener("submit", async (event) => {
     brand,
     category,
     description,
+    price,
     image_url: imageUrl,
     image_path: imagePath,
     image_urls: imageUrls,

@@ -6,7 +6,7 @@ const loadAkujualanPortfolio = async () => {
     // Fetch all items for akujualan
     const { data, error } = await window.supabaseClient
         .from("portfolio_items")
-        .select("id, title, category, description, image_url, image_urls, sort_order, created_at")
+        .select("id, title, category, description, price, image_url, image_urls, sort_order, created_at")
         .eq("brand", "akujualan")
         .order("sort_order", { ascending: true })
         .order("created_at", { ascending: false });
@@ -40,6 +40,8 @@ const loadAkujualanPortfolio = async () => {
         card.setAttribute("data-description", item.description || "");
         card.setAttribute("data-images", JSON.stringify(item.image_urls || [item.image_url]));
 
+        const displayPrice = item.price ? (item.price.toLowerCase().includes("rp") ? item.price : `Rp ${item.price}`) : "";
+
         card.innerHTML = `
             <div class="portfolio-thumb-wrapper" style="width: 100%; height: 260px; border-radius: 12px; overflow: hidden; position: relative;">
                 <img class="portfolio-thumb" src="${item.image_url}" alt="${item.title}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1);">
@@ -48,8 +50,13 @@ const loadAkujualanPortfolio = async () => {
                 </div>
             </div>
             <div class="portfolio-info" style="margin-top: 16px;">
-                <div class="kicker" style="font-size: 10px; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;">${item.category || "Crochet"}</div>
-                <h3 class="portfolio-title" style="font-size: 18px; font-weight: 700; color: var(--text);">${item.title}</h3>
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div>
+                        <div class="kicker" style="font-size: 10px; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;">${item.category || "Crochet"}</div>
+                        <h3 class="portfolio-title" style="font-size: 18px; font-weight: 700; color: var(--text);">${item.title}</h3>
+                    </div>
+                    ${displayPrice ? `<div class="price-tag" style="font-size: 13px; font-weight: 700; color: var(--accent); background: rgba(166,139,124,0.1); padding: 4px 10px; border-radius: 8px;">${displayPrice}</div>` : ""}
+                </div>
             </div>
         `;
 
@@ -81,6 +88,8 @@ const loadAkujualanPortfolio = async () => {
                 card.className = "card reveal";
                 card.style.cssText = "padding: 0; flex-direction: column; position: relative; overflow: hidden; background: #fff; border-radius: 24px; border: 1px solid var(--line); cursor: pointer;";
 
+                const displayPrice = item.price ? (item.price.toLowerCase().includes("rp") ? item.price : `Rp ${item.price}`) : "";
+
                 card.innerHTML = `
                     <div class="bundling-thumb-wrapper" style="width: 100%; height: 220px; overflow: hidden; position: relative;">
                         <img src="${item.image_url}" alt="${item.title}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;">
@@ -89,7 +98,10 @@ const loadAkujualanPortfolio = async () => {
                         </div>
                     </div>
                     <div style="padding: 24px; display: flex; flex-direction: column; gap: 12px;">
-                        <div class="kicker" style="font-size: 12px;">Special Package</div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div class="kicker" style="font-size: 12px;">Special Package</div>
+                            ${displayPrice ? `<div style="font-weight: 800; color: var(--accent); font-size: 18px;">${displayPrice}</div>` : ""}
+                        </div>
                         <h3 style="font-size: 20px; font-weight: 700; color: var(--text); line-height: 1.2;">${item.title}</h3>
                         <p style="font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 8px;">${item.description || "Hubungi kami untuk detail paket hemat ini."}</p>
                         <div style="display: flex; gap: 12px; margin-top: 8px;">
