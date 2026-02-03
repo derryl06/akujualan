@@ -997,12 +997,70 @@ body[data-theme="dark"] select {
 }
 
 @media (max-width: 640px) {
+  .container {
+    padding: 16px;
+  }
+
+  .admin-panel {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .admin-header .btn {
+    width: 100%;
+  }
+
+  .headline {
+    font-size: 24px;
+  }
+
+  .form-grid {
+    gap: 12px;
+  }
+
   .admin-item {
-    grid-template-columns: 1fr;
+    grid-template-columns: 32px 60px 1fr;
+    grid-template-rows: auto auto;
+    gap: 8px 12px;
+    padding: 12px;
+  }
+
+  .admin-thumb {
+    width: 60px;
+    height: 60px;
   }
 
   .admin-actions {
-    justify-content: flex-start;
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+    justify-content: flex-end;
+  }
+
+  .admin-actions .btn {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .card-grid {
+    gap: 12px;
+  }
+
+  .admin-tabs {
+    margin-bottom: 20px;
+  }
+
+  .tab-btn {
+    padding: 8px 14px;
+    font-size: 13px;
   }
 }
 
