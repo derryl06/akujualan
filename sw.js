@@ -1,4 +1,4 @@
-const CACHE_NAME = "akujualan-v1";
+const CACHE_NAME = "akujualan-v2";
 const ASSETS_TO_CACHE = [
     "index.html",
     "akugambar/index.html",
@@ -17,6 +17,7 @@ const ASSETS_TO_CACHE = [
 
 // Install Service Worker
 self.addEventListener("install", (event) => {
+    self.skipWaiting(); // Force the waiting service worker to become the active service worker
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
             return cache.addAll(ASSETS_TO_CACHE);
@@ -33,13 +34,29 @@ self.addEventListener("activate", (event) => {
             );
         })
     );
+    self.clients.claim(); // Take control of all open tabs immediately
 });
 
-// Fetch Assets
+// Fetch Assets with Stale-While-Revalidate Strategy
 self.addEventListener("fetch", (event) => {
     event.respondWith(
-        caches.match(event.request).then((response) => {
-            return response || fetch(event.request);
+        caches.match(event.request).then((cachedResponse) => {
+            const fetchPromise = fetch(event.request).then((networkResponse) => {
+                // Only cache successful responses and same-origin requests
+                if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+                    const responseToCache = networkResponse.clone();
+                    caches.open(CACHE_NAME).then((cache) => {
+                        cache.put(event.request, responseToCache);
+                    });
+                }
+                return networkResponse;
+            }).catch(() => {
+                // If network fails, we already have the cached response (even if undefined)
+                return cachedResponse;
+            });
+
+            // Return cached response if available, or wait for fetch
+            return cachedResponse || fetchPromise;
         })
     );
 });

@@ -91,9 +91,23 @@ document.addEventListener("DOMContentLoaded", () => {
     if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
             navigator.serviceWorker
-                .register("./sw.js") // Use relative path for GitHub Pages compatibility
-                .then((reg) => console.log("SW Registered"))
+                .register("./sw.js")
+                .then((reg) => {
+                    console.log("SW Registered");
+
+                    // Check for updates periodically
+                    reg.update();
+                })
                 .catch((err) => console.log("SW Failed", err));
+        });
+
+        // Reload the page when a new service worker takes control
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (!refreshing) {
+                refreshing = true;
+                window.location.reload();
+            }
         });
     }
 
