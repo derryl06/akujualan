@@ -53,180 +53,189 @@
           <div class="admin-panel is-hidden" id="admin-panel">
             <div class="admin-header">
               <div>
-                <div class="headline">Kelola Portofolio</div>
-                <p class="muted">Tambah, edit, atau hapus karya.</p>
+                <div class="headline">Admin Dashboard</div>
+                <p class="muted">Halo, selamat datang kembali.</p>
               </div>
               <button class="btn btn-outline" type="button" id="logout-btn">Keluar</button>
             </div>
 
-            <form id="item-form" class="form-grid">
-              <div>
-                <label for="item-title">Judul</label>
-                <input id="item-title" type="text" required />
-              </div>
-              <div>
-                <label for="item-brand">Website</label>
-                <select id="item-brand" required>
-                  <option value="akugambar">akugambar.co (Desain)</option>
-                  <option value="akujualan">akujualan.co (Rajut)</option>
-                </select>
-              </div>
-              <div>
-                <label for="item-category">Kategori</label>
-                <select id="item-category" required>
-                  <optgroup label="akugambar (Desain)">
-                    <option value="branding">Branding</option>
-                    <option value="poster">Poster</option>
-                    <option value="logo">Logo</option>
-                    <option value="ilustrasi">Ilustrasi</option>
-                  </optgroup>
-                  <optgroup label="akujualan (Crochet)">
-                    <option value="coaster">Coaster</option>
-                    <option value="bag-pouch">Tas / Dompet / Card Holder</option>
-                    <option value="keychain">Keychain / Bag Charm</option>
-                    <option value="custom">Custom</option>
-                    <option value="bundling">Paket Bundling</option>
-                  </optgroup>
-                </select>
-              </div>
-              <div>
-                <label for="item-price">Harga (Opsional)</label>
-                <input id="item-price" type="text" placeholder="Contoh: 50.000 atau Tergantung Ukuran" />
-              </div>
-              <div class="full">
-                <label for="item-description">Deskripsi</label>
-                <textarea id="item-description" rows="3"></textarea>
-              </div>
-              <div class="full">
-                <label>Gambar (max 5)</label>
-                <div id="dropzone" class="dropzone">
-                  <input id="item-image" type="file" accept="image/*" multiple />
-                  <div class="dropzone-text">
-                    Tarik & letakkan gambar di sini, atau klik untuk memilih.
-                  </div>
-                  <small class="muted">Auto-compress max 1600px / 500KB.</small>
-                </div>
-                <div id="image-preview" class="preview-grid"></div>
-              </div>
-              <div class="form-actions full">
-                <button class="btn" type="submit" id="submit-btn">Simpan</button>
-                <button class="btn btn-outline" type="button" id="reset-btn">Reset</button>
-              </div>
-              <div id="item-status" class="form-status full"></div>
-            </form>
-
-            <div class="admin-sort">
-              <div class="kicker">Maintenance</div>
-              <p class="muted">Kompres semua gambar lama yang belum dikecilkan.</p>
-              <button class="btn btn-outline" type="button" id="bulk-compress-btn">Bulk Kompres Semua</button>
+            <!-- Tab Navigation -->
+            <div class="admin-tabs">
+              <button class="tab-btn is-active" data-tab="tab-portfolio">Portofolio</button>
+              <button class="tab-btn" data-tab="tab-store">Toko & Slot</button>
+              <button class="tab-btn" data-tab="tab-stats">Statistik</button>
+              <button class="tab-btn" data-tab="tab-others">Lainnya</button>
             </div>
 
-            <div class="admin-sort">
-              <div class="kicker">Urutkan & Kelola Karya</div>
-              <p class="muted">Drag & drop untuk mengatur urutan, lalu simpan.</p>
-              <button class="btn btn-outline" type="button" id="save-order-btn" style="margin-top: 12px;">Simpan
-                Urutan</button>
-            </div>
+            <!-- Tab Portofolio -->
+            <div class="admin-section is-active" id="tab-portfolio">
+              <div class="section-title">
+                <div class="headline" style="font-size: 20px;">Tambah & Urutkan Karya</div>
+                <p class="muted">Kelola galeri karya untuk kedua brand.</p>
+              </div>
 
-            <div style="margin-top: 32px;">
-              <div class="kicker">akugambar.co (Desain)</div>
-              <div class="admin-list" id="item-list-akugambar"></div>
-            </div>
-
-            <!-- Slot Management Section -->
-            <div style="margin-top: 40px; background: rgba(166, 139, 124, 0.05); padding: 24px; border-radius: 20px;">
-              <div class="admin-header">
+              <form id="item-form" class="form-grid" style="margin-top: 20px;">
                 <div>
-                  <div class="headline" style="font-size: 20px;">Manajemen Slot Produksi</div>
-                  <p class="muted">Atur kuota pesanan rajutan minggu ini.</p>
+                  <label for="item-title">Judul</label>
+                  <input id="item-title" type="text" required />
                 </div>
-              </div>
-              <div
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 16px; margin-top: 20px;">
                 <div>
-                  <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Status
-                    Pesanan</label>
-                  <select id="slot-status"
-                    style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg);">
-                    <option value="open">Buka (Open Order)</option>
-                    <option value="closed">Tutup (Full Booked)</option>
+                  <label for="item-brand">Website</label>
+                  <select id="item-brand" required>
+                    <option value="akugambar">akugambar.co (Desain)</option>
+                    <option value="akujualan">akujualan.co (Rajut)</option>
                   </select>
                 </div>
                 <div>
-                  <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Slot
-                    Terisi</label>
-                  <input type="number" id="slot-filled" min="0" value="0"
-                    style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg);">
+                  <label for="item-category">Kategori</label>
+                  <select id="item-category" required>
+                    <optgroup label="akugambar (Desain)">
+                      <option value="branding">Branding</option>
+                      <option value="poster">Poster</option>
+                      <option value="logo">Logo</option>
+                      <option value="ilustrasi">Ilustrasi</option>
+                    </optgroup>
+                    <optgroup label="akujualan (Crochet)">
+                      <option value="coaster">Coaster</option>
+                      <option value="bag-pouch">Tas / Dompet / Card Holder</option>
+                      <option value="keychain">Keychain / Bag Charm</option>
+                      <option value="custom">Custom</option>
+                      <option value="bundling">Paket Bundling</option>
+                    </optgroup>
+                  </select>
                 </div>
                 <div>
-                  <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Total
-                    Kuota</label>
-                  <input type="number" id="slot-total" min="1" value="5"
-                    style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg);">
+                  <label for="item-price">Harga (Opsional)</label>
+                  <input id="item-price" type="text" placeholder="Contoh: 50.000 atau Tergantung Ukuran" />
                 </div>
-                <div style="display: flex; align-items: flex-end;">
-                  <button id="save-slots-btn" class="btn" style="width: 100%; padding: 11px;">Update Slot</button>
+                <div class="full">
+                  <label for="item-description">Deskripsi</label>
+                  <textarea id="item-description" rows="3"></textarea>
                 </div>
-              </div>
-              <div id="slot-status-msg" class="form-status" style="margin-top: 12px; font-size: 13px;"></div>
-            </div>
+                <div class="full">
+                  <label>Gambar (max 5)</label>
+                  <div id="dropzone" class="dropzone">
+                    <input id="item-image" type="file" accept="image/*" multiple />
+                    <div class="dropzone-text">
+                      Tarik & letakkan gambar di sini, atau klik untuk memilih.
+                    </div>
+                    <small class="muted">Auto-compress max 1600px / 500KB.</small>
+                  </div>
+                  <div id="image-preview" class="preview-grid"></div>
+                </div>
+                <div class="form-actions full">
+                  <button class="btn" type="submit" id="submit-btn">Simpan</button>
+                  <button class="btn btn-outline" type="button" id="reset-btn">Reset</button>
+                </div>
+                <div id="item-status" class="form-status full"></div>
+              </form>
 
-            <!-- Today's Craft Section -->
-            <div
-              style="margin-top: 24px; background: rgba(var(--text-rgb), 0.03); padding: 24px; border-radius: 20px; border: 1px solid var(--line);">
-              <div class="admin-header">
+              <div class="admin-sort" style="margin-top: 40px; border-top: 1px solid var(--line); padding-top: 24px;">
+                <div class="kicker">Pengaturan Urutan</div>
+                <p class="muted">Drag & drop item di bawah untuk merapikan tampilan website.</p>
+                <button class="btn btn-outline" type="button" id="save-order-btn" style="margin-top: 12px;">Simpan
+                  Urutan</button>
+              </div>
+
+              <div style="margin-top: 32px; display: grid; gap: 32px;">
                 <div>
-                  <div class="headline" style="font-size: 20px;">Today's Craft Status</div>
-                  <p class="muted">Tampilkan apa yang sedang Anda kerjakan hari ini di website.</p>
+                  <div class="kicker">akugambar.co (Desain)</div>
+                  <div class="admin-list" id="item-list-akugambar"></div>
                 </div>
-              </div>
-              <div style="margin-top: 16px; display: flex; gap: 12px;">
-                <input type="text" id="todays-craft-input" placeholder="Contoh: Merajut tas pesanan Jakarta... 🧶"
-                  style="flex: 1; padding: 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg);">
-                <button id="save-craft-btn" class="btn" style="padding: 12px 24px;">Update Status</button>
-              </div>
-              <div id="craft-status-msg" class="form-status" style="margin-top: 12px; font-size: 13px;"></div>
-            </div>
-
-            <div style="margin-top: 40px;">
-              <div class="kicker">akujualan.co (Rajut)</div>
-              <div class="admin-list" id="item-list-akujualan"></div>
-            </div>
-
-            <div style="margin-top: 60px;">
-              <div class="admin-header">
                 <div>
-                  <div class="headline">Statistik Pengunjung</div>
-                  <p class="muted">Ringkasan aktivitas website Anda.</p>
+                  <div class="kicker">akujualan.co (Rajut)</div>
+                  <div class="admin-list" id="item-list-akujualan"></div>
                 </div>
               </div>
+            </div>
+
+            <!-- Tab Toko & Slot -->
+            <div class="admin-section" id="tab-store">
+              <div style="background: rgba(166, 139, 124, 0.05); padding: 24px; border-radius: 20px;">
+                <div class="admin-header">
+                  <div>
+                    <div class="headline" style="font-size: 20px;">Manajemen Slot Produksi</div>
+                    <p class="muted">Atur kuota pesanan rajutan minggu ini.</p>
+                  </div>
+                </div>
+                <div
+                  style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 16px; margin-top: 20px;">
+                  <div>
+                    <label>Status Pesanan</label>
+                    <select id="slot-status">
+                      <option value="open">Buka (Open Order)</option>
+                      <option value="closed">Tutup (Full Booked)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label>Slot Terisi</label>
+                    <input type="number" id="slot-filled" min="0" value="0">
+                  </div>
+                  <div>
+                    <label>Total Kuota</label>
+                    <input type="number" id="slot-total" min="1" value="5">
+                  </div>
+                  <div style="display: flex; align-items: flex-end;">
+                    <button id="save-slots-btn" class="btn" style="width: 100%;">Update Slot</button>
+                  </div>
+                </div>
+                <div id="slot-status-msg" class="form-status" style="margin-top: 12px;"></div>
+              </div>
+
+              <div
+                style="margin-top: 24px; background: rgba(var(--text-rgb), 0.03); padding: 24px; border-radius: 20px; border: 1px solid var(--line);">
+                <div class="headline" style="font-size: 20px;">Today's Craft Status</div>
+                <p class="muted">Status yang muncul di badge melayang website.</p>
+                <div style="margin-top: 16px; display: flex; gap: 12px;">
+                  <input type="text" id="todays-craft-input" placeholder="Contoh: Merajut tas pesanan Jakarta... 🧶">
+                  <button id="save-craft-btn" class="btn">Update</button>
+                </div>
+                <div id="craft-status-msg" class="form-status" style="margin-top: 12px;"></div>
+              </div>
+            </div>
+
+            <!-- Tab Statistik -->
+            <div class="admin-section" id="tab-stats">
+              <div class="headline" style="font-size: 20px;">Statistik Pengunjung</div>
+              <p class="muted">Ringkasan aktivitas website Anda.</p>
+
               <div class="card-grid"
-                style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-bottom: 24px;">
-                <div class="card" style="flex-direction: column; padding: 20px; min-height: auto; text-align: center;">
+                style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 24px; gap: 16px;">
+                <div class="card" style="flex-direction: column; padding: 24px; text-align: center;">
                   <div class="kicker">Total Kunjungan</div>
-                  <div class="headline" id="stat-total-visits" style="font-size: 32px; margin: 10px 0;">0</div>
+                  <div class="headline" id="stat-total-visits"
+                    style="font-size: 32px; margin: 10px 0; color: var(--accent);">0</div>
                 </div>
-                <div class="card" style="flex-direction: column; padding: 20px; min-height: auto; text-align: center;">
+                <div class="card" style="flex-direction: column; padding: 24px; text-align: center;">
                   <div class="kicker">Halaman Terpopuler</div>
                   <div class="headline" id="stat-top-page" style="font-size: 18px; margin: 10px 0;">-</div>
                 </div>
-                <div class="card" style="flex-direction: column; padding: 20px; min-height: auto; text-align: center;">
+                <div class="card" style="flex-direction: column; padding: 24px; text-align: center;">
                   <div class="kicker">Referrer Teratas</div>
                   <div class="headline" id="stat-top-referrer" style="font-size: 18px; margin: 10px 0;">-</div>
                 </div>
               </div>
             </div>
 
-            <div style="margin-top: 40px;">
+            <!-- Tab Lainnya -->
+            <div class="admin-section" id="tab-others">
               <div class="admin-header">
                 <div>
-                  <div class="headline">Kelola Testimoni</div>
+                  <div class="headline" style="font-size: 20px;">Kelola Testimoni</div>
                   <p class="muted">Hapus testimoni yang tidak sesuai.</p>
                 </div>
               </div>
               <div id="testi-status-admin" class="form-status" style="margin-bottom: 12px;"></div>
               <div class="admin-list" id="testi-list-admin">
                 <p class="muted">Memuat testimoni...</p>
+              </div>
+
+              <div style="margin-top: 48px; border-top: 1px solid var(--line); padding-top: 32px;">
+                <div class="kicker">Tools & Maintenance</div>
+                <div class="headline" style="font-size: 20px;">Lain-lain</div>
+                <p class="muted">Kompres semua gambar lama yang belum dikecilkan untuk menghemat storage.</p>
+                <button class="btn btn-outline" type="button" id="bulk-compress-btn" style="margin-top: 16px;">Bulk
+                  Kompres Semua</button>
               </div>
             </div>
           </div>

@@ -25,6 +25,8 @@ const slotStatusMsg = document.getElementById("slot-status-msg");
 const craftInput = document.getElementById("todays-craft-input");
 const saveCraftBtn = document.getElementById("save-craft-btn");
 const craftStatusMsg = document.getElementById("craft-status-msg");
+const tabBtns = document.querySelectorAll(".tab-btn");
+const adminSections = document.querySelectorAll(".admin-section");
 
 const BUCKET_NAME = "portfolio";
 const MAX_UPLOAD_SIZE = 10 * 1024 * 1024; // Batas upload awal (10MB)
@@ -57,7 +59,24 @@ const showStatus = (el, message, isError = false) => {
 const setPanelState = (isAuthed) => {
   authPanel.classList.toggle("is-hidden", isAuthed);
   adminPanel.classList.toggle("is-hidden", !isAuthed);
+  if (isAuthed) {
+    // Default to first tab
+    switchTab("tab-portfolio");
+  }
 };
+
+const switchTab = (tabId) => {
+  tabBtns.forEach(btn => {
+    btn.classList.toggle("is-active", btn.dataset.tab === tabId);
+  });
+  adminSections.forEach(section => {
+    section.classList.toggle("is-active", section.id === tabId);
+  });
+};
+
+tabBtns.forEach(btn => {
+  btn.addEventListener("click", () => switchTab(btn.dataset.tab));
+});
 
 const resetForm = () => {
   itemForm.reset();
@@ -618,48 +637,63 @@ imageInput.addEventListener("change", (event) => {
 });
 
 let dragSrc = null;
-itemList.addEventListener("dragstart", (event) => {
-  const item = event.target.closest(".admin-item");
-  if (!item) return;
-  dragSrc = item;
-  item.classList.add("is-dragging");
-  event.dataTransfer.effectAllowed = "move";
-});
+[itemListAkugambar, itemListAkujualan].forEach(list => {
+  if (!list) return;
+  list.addEventListener("dragstart", (item) => {
+    const target = item.target.closest(".admin-item");
+    if (!target) return;
+    dragSrc = target;
+    target.classList.add("is-dragging");
+    item.dataTransfer.effectAllowed = "move";
+  });
 
-itemList.addEventListener("dragend", () => {
-  if (dragSrc) dragSrc.classList.remove("is-dragging");
-  dragSrc = null;
-});
+  list.addEventListener("dragend", () => {
+    if (dragSrc) dragSrc.classList.remove("is-dragging");
+    dragSrc = null;
+  });
 
-itemList.addEventListener("dragover", (event) => {
-  event.preventDefault();
-  const item = event.target.closest(".admin-item");
-  if (!item || item === dragSrc) return;
-  const rect = item.getBoundingClientRect();
-  const after = event.clientY > rect.top + rect.height / 2;
-  itemList.insertBefore(dragSrc, after ? item.nextSibling : item);
+  list.addEventListener("dragover", (event) => {
+    event.preventDefault();
+    const item = event.target.closest(".admin-item");
+    if (!item || item === dragSrc) return;
+    const rect = item.getBoundingClientRect();
+    const after = event.clientY > rect.top + rect.height / 2;
+    list.insertBefore(dragSrc, after ? item.nextSibling : item);
+  });
 });
 
 saveOrderBtn.addEventListener("click", async () => {
   if (!ensureConfigured()) return;
-  const items = Array.from(itemList.querySelectorAll(".admin-item"));
-  const updates = items.map((row, index) => ({
+
+  const allItems = [
+    ...Array.from(itemListAkugambar.querySelectorAll(".admin-item")),
+    ...Array.from(itemListAkujualan.querySelectorAll(".admin-item"))
+  ];
+
+  if (allItems.length === 0) return;
+
+  saveOrderBtn.disabled = true;
+  showStatus(itemStatus, "Menyimpan urutan...");
+
+  const updates = allItems.map((row, index) => ({
     id: row.dataset.id,
     sort_order: index + 1,
   }));
 
-  for (const update of updates) {
-    const { error } = await window.supabaseClient
-      .from("portfolio_items")
-      .update({ sort_order: update.sort_order })
-      .eq("id", update.id);
-    if (error) {
-      showStatus(itemStatus, error.message, true);
-      return;
+  try {
+    for (const update of updates) {
+      const { error } = await window.supabaseClient
+        .from("portfolio_items")
+        .update({ sort_order: update.sort_order })
+        .eq("id", update.id);
+      if (error) throw error;
     }
+    showStatus(itemStatus, "Urutan disimpan.");
+  } catch (err) {
+    showStatus(itemStatus, err.message, true);
+  } finally {
+    saveOrderBtn.disabled = false;
   }
-
-  showStatus(itemStatus, "Urutan disimpan.");
 });
 
 bulkCompressBtn.addEventListener("click", async () => {
