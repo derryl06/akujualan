@@ -71,7 +71,7 @@ const openLightbox = (images, index = 0, title = "", desc = "", price = "", kick
   const waLink = lightbox.querySelector("#lightbox-wa-link");
   if (waLink) {
     const isAkugambar = window.location.pathname.includes("akugambar");
-    const brandName = isAkugambar ? "akugambar.co" : "akujualan.co";
+    const brandName = isAkugambar ? "akugambar.co" : "akujualan.co_";
     const waNumber = isAkugambar ? "6282264330546" : "6285700804186";
 
     const formattedPrice = price ? (price.toLowerCase().includes("rp") ? price : `Rp ${price}`) : "tanya harga";
