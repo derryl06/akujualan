@@ -292,23 +292,8 @@ if (testimonialForm) {
 
 loadTestimonials();
 
-// FAQ Accordion
-document.addEventListener("click", (e) => {
-  const btn = e.target.closest(".faq-question");
-  if (!btn) return;
+// FAQ Accordion logic removed as it uses native <details> elements.
 
-  const item = btn.closest(".faq-item");
-  const isOpen = item.classList.contains("is-open");
-
-  // Close all other FAQ items (optional, comment out if you want multiple open)
-  document.querySelectorAll(".faq-item").forEach((other) => {
-    other.classList.remove("is-open");
-  });
-
-  if (!isOpen) {
-    item.classList.add("is-open");
-  }
-});
 
 // Scroll reveal observer
 const revealObserver = new IntersectionObserver((entries) => {

@@ -3,6 +3,25 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
+    // Mobile Nav Toggle
+    const mobileNavToggle = document.querySelector(".mobile-nav-toggle");
+    const mainNav = document.querySelector(".main-nav");
+    if (mobileNavToggle && mainNav) {
+        mobileNavToggle.addEventListener("click", () => {
+            const isExpanded = mobileNavToggle.getAttribute("aria-expanded") === "true";
+            mobileNavToggle.setAttribute("aria-expanded", !isExpanded);
+            mainNav.classList.toggle("is-open");
+        });
+
+        // Close menu when clicking a link
+        mainNav.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                mobileNavToggle.setAttribute("aria-expanded", "false");
+                mainNav.classList.remove("is-open");
+            });
+        });
+    }
+
     // Social FAB Toggle
     const socialFab = document.querySelector(".social-fab");
     if (socialFab) {
@@ -16,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Close when clicking outside
         document.addEventListener("click", (e) => {
-            if (!socialFab.contains(e.target)) {
+            if (!socialFab.contains(e.target) && (!mobileNavToggle || !mobileNavToggle.contains(e.target))) {
                 socialFab.classList.remove("is-active");
             }
         });
