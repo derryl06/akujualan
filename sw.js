@@ -39,10 +39,13 @@ self.addEventListener("activate", (event) => {
 
 // Fetch Assets with Stale-While-Revalidate Strategy
 self.addEventListener("fetch", (event) => {
+    // Skip non-http/https requests (like chrome-extension)
+    if (!event.request.url.startsWith('http')) return;
+
     event.respondWith(
         caches.match(event.request).then((cachedResponse) => {
             const fetchPromise = fetch(event.request).then((networkResponse) => {
-                // Only cache successful responses and same-origin requests
+                // Only cache successful responses, same-origin/basic requests, and valid status
                 if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
                     const responseToCache = networkResponse.clone();
                     caches.open(CACHE_NAME).then((cache) => {
@@ -50,12 +53,18 @@ self.addEventListener("fetch", (event) => {
                     });
                 }
                 return networkResponse;
-            }).catch(() => {
-                // If network fails, we already have the cached response (even if undefined)
-                return cachedResponse;
+            }).catch((error) => {
+                // If network fails, return cached response if it exists
+                if (cachedResponse) return cachedResponse;
+                // Otherwise throw to trigger fetch failure properly
+                throw error;
             });
 
-            // Return cached response if available, or wait for fetch
+            // Return cached response if available immediately (Stale-While-Revalidate part)
+            // But for Supabase/API calls, we might prefer fresh data
+            const isApiCall = event.request.url.includes('supabase.co');
+            if (isApiCall) return fetchPromise;
+
             return cachedResponse || fetchPromise;
         })
     );

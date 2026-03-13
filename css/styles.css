@@ -237,6 +237,59 @@ header {
   filter: brightness(1.1);
 }
 
+.mobile-nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  padding: 10px;
+  position: relative;
+}
+
+.hamburger {
+  display: block;
+  width: 24px;
+  height: 3px;
+  background: var(--text);
+  position: relative;
+  transition: background 0.3s;
+  border-radius: 99px;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 3px;
+  background: var(--text);
+  left: 0;
+  transition: transform 0.3s;
+  border-radius: 99px;
+}
+
+.hamburger::before {
+  top: -8px;
+}
+
+.hamburger::after {
+  bottom: -8px;
+}
+
+.mobile-nav-toggle[aria-expanded="true"] .hamburger {
+  background: transparent;
+}
+
+.mobile-nav-toggle[aria-expanded="true"] .hamburger::before {
+  transform: rotate(45deg) translate(5px, 6px);
+}
+
+.mobile-nav-toggle[aria-expanded="true"] .hamburger::after {
+  transform: rotate(-45deg) translate(5px, -6px);
+}
+
 @media (max-width: 768px) {
   .mobile-nav-toggle {
     display: block;
@@ -274,56 +327,6 @@ header {
   }
 }
 
-.mobile-nav-toggle {
-  display: none;
-  background: transparent;
-  border: none;
-  width: 44px;
-  height: 44px;
-  cursor: pointer;
-  padding: 10px;
-  position: relative;
-}
-
-.hamburger {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--text);
-  position: relative;
-  transition: background 0.3s;
-}
-
-.hamburger::before,
-.hamburger::after {
-  content: "";
-  position: absolute;
-  width: 24px;
-  height: 2px;
-  background: var(--text);
-  left: 0;
-  transition: transform 0.3s;
-}
-
-.hamburger::before {
-  top: -8px;
-}
-
-.hamburger::after {
-  bottom: -8px;
-}
-
-.mobile-nav-toggle[aria-expanded="true"] .hamburger {
-  background: transparent;
-}
-
-.mobile-nav-toggle[aria-expanded="true"] .hamburger::before {
-  transform: rotate(45deg) translate(5px, 6px);
-}
-
-.mobile-nav-toggle[aria-expanded="true"] .hamburger::after {
-  transform: rotate(-45deg) translate(5px, -6px);
-}
 
 .theme-toggle {
   position: relative;
