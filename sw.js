@@ -42,6 +42,11 @@ self.addEventListener("fetch", (event) => {
     // Skip non-http/https requests (like chrome-extension)
     if (!event.request.url.startsWith('http')) return;
 
+    // Bypass Supabase API calls completely from being cached/intercepted
+    if (event.request.url.includes('supabase.co')) {
+        return;
+    }
+
     event.respondWith(
         caches.match(event.request).then((cachedResponse) => {
             const fetchPromise = fetch(event.request).then((networkResponse) => {
@@ -60,11 +65,7 @@ self.addEventListener("fetch", (event) => {
                 throw error;
             });
 
-            // Return cached response if available immediately (Stale-While-Revalidate part)
-            // But for Supabase/API calls, we might prefer fresh data
-            const isApiCall = event.request.url.includes('supabase.co');
-            if (isApiCall) return fetchPromise;
-
+            // Return cached response if available (fallback to network)
             return cachedResponse || fetchPromise;
         })
     );
